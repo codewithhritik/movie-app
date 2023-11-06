@@ -55,4 +55,6 @@ router.get("/", async (req, res) => {
     }
 })
 
+router.get('/',(req, res) => res.send('Auth route'));
+
 export default router
