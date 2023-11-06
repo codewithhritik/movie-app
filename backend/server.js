@@ -1,25 +1,39 @@
 import express from "express"
 import cors from "cors"
+import dotenv from "dotenv"
+import mongoose from "mongoose"
+import moviesRoute from "./routes/api/movies.js"
+
+dotenv.config()
 
 const app = express()
 
-app.use(cors)
+app.use(cors())
 app.use(express.json())
 
-export default app
+const PORT = process.env.PORT;
 
-const express = require('express');
-const connectDB = require('./config/db')
+const connect = async () => {
+    try {
+        await mongoose.connect(process.env.DB_URI)
+        console.log("Connected to MongoDB")
+    } catch(error) {
+        throw error
+    }
+}
 
-//Connect Database
-connectDB();
-app.get('/', (req, res)=> res.send('API running'));
-
-// Define Routes
+// // Define Routes
 app.use('/api/users', require('./routes/api/users'));
 app.use('/api/auth', require('./routes/api/auth'));
 app.use('/api/profile', require('./routes/api/profile'));
 
-const PORT = process.env.PORT || 5000;
+app.use("/api/movies", moviesRoute)
 
-app.listen(PORT, ()  => console.log('Server started on port ${PORT}'));
+app.get("/", (req, res) => {
+    res.send('API running')
+})
+
+app.listen(PORT, ()  => {
+    connect()
+    console.log(`Server started on port ${PORT}`)
+});
