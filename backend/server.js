@@ -2,7 +2,10 @@ import express from "express"
 import cors from "cors"
 import dotenv from "dotenv"
 import mongoose from "mongoose"
-import moviesRoute from "./routes/api/movies.js"
+
+import usersRoute from './routes/api/users.js';
+import authRoute from './routes/api/auth.js';
+import moviesRoute from './routes/api/movies.js';
 
 dotenv.config()
 
@@ -22,12 +25,10 @@ const connect = async () => {
     }
 }
 
-// // Define Routes
-app.use('/api/users', require('./routes/api/users'));
-app.use('/api/auth', require('./routes/api/auth'));
-app.use('/api/profile', require('./routes/api/profile'));
-
-app.use("/api/movies", moviesRoute)
+// Define Routes
+app.use('/api/users', usersRoute);
+app.use('/api/auth', authRoute);
+app.use('/api/movies', moviesRoute);
 
 app.get("/", (req, res) => {
     res.send('API running')
