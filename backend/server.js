@@ -14,6 +14,7 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
+//Connect Database
 const PORT = process.env.PORT;
 
 const connect = async () => {
@@ -24,6 +25,9 @@ const connect = async () => {
         throw error
     }
 }
+
+//Init Middleware
+app.use( express.json({extended:false}));
 
 // Define Routes
 app.use('/api/users', usersRoute);
