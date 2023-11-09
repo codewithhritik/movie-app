@@ -58,7 +58,7 @@ const LandingPage = () => {
         <div className="movie-tiles">
             {movies.map((movie) => {
                   return (
-                    <div ref={bookingPageRef} onClick={() => handlePosterCardClick(movie)}>
+                    <div key={movie._id} ref={bookingPageRef} onClick={() => handlePosterCardClick(movie)}>
                         <PosterCard movie={movie}  />
                     </div>
                   ) 
@@ -76,7 +76,11 @@ const LandingPage = () => {
       <div className='movies'>
         <div className="movie-tiles">
             {movies.map((movie) => {
-                  return <PosterCard movie={movie} key={movie._id}/>
+                  return(
+                    <div key={movie._id}>
+                      <PosterCard movie={movie}/>
+                    </div>
+                  )
             })}
         </div>
       </div>

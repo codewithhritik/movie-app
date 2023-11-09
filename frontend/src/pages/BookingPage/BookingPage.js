@@ -57,8 +57,8 @@ const BookingPage = ({movie}) => {
                     <div className="date-boxes">
                     {dates.map((date) => {
                         return (
-                            <div key={date} onClick={() => handleDatesClick(date)}>
-                                <DateButton date={date} selected={selectedDate == date.date}/>
+                            <div key={date.date} onClick={() => handleDatesClick(date)}>
+                                <DateButton date={date} selected={selectedDate === date.date}/>
                             </div>      
                         )
                     })}
@@ -71,7 +71,7 @@ const BookingPage = ({movie}) => {
                         <div className="time-boxes">
                         {times.map((time) => {
                             return (
-                                <div className="time-box" onClick={() => handleTimeClick(time)}>
+                                <div key={time} className="time-box" onClick={() => handleTimeClick(time)}>
                                     <TimeButton time={time} selected={selectedTime === time} />
                                 </div>
                             )
