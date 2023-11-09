@@ -1,9 +1,12 @@
 // users.js
-import express from 'express';
+import express from 'express'
+import user from "../../models/User.js";
 const router = express.Router();
+const gravatar = require('gravatar');
+const bcrypt = require('bcryptjs');
 import { check, validationResult } from 'express-validator';
 
-import User from '../../models/User';
+
 
 // @route   POST api/users
 // @desc    Register user
@@ -30,22 +33,31 @@ async (req,res) => {
         res.status(400).json({errors: [{msg: 'User already exists}'}]});
     }
 
-    //Get users gravatar
+    const avatar = gravatar.url(email,{
+        s:'2--,
+        r:'pg',
+        d:'mm'
+    })
 
-    //Encrypt password
+    user = new User({
+        name,
+        email,
+        avatar,
+        password
+    });
+
+    const salt = await bcrypt.genSalt(10);
+
+    user.password = await bcrypt.hash(password, salt);
+
+    await user.save();
 
     //Return jsonwebtoken
-
-
-
     res.send('User route');
-
     }catch(err){
         console.error(err.message);
         res.status(500).send('Server err');
     }
-
-    
 })
 
 export default router;
