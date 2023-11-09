@@ -5,6 +5,7 @@ import { check, validationResult } from 'express-validator';
 const router = express.Router();
 import gravatar from 'gravatar';
 import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 import User from "../../models/User.js";
 
 
@@ -55,7 +56,21 @@ async (req,res) => {
         await user.save();
 
         //Return jsonwebtoken
-        res.send('User registered');
+        const payload = {
+            user:{
+                id: user.id
+            }
+        }
+
+        jwt.sign(
+            payload,
+            process.env.jwtSecret,
+            { expiresIn:360000},
+            (err,token) => {
+                if(err)throw err;
+                res.json({token});
+            }
+            );
 
     }catch(err){
         console.error(err.message);
