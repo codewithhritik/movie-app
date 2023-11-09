@@ -29,35 +29,35 @@ async (req,res) => {
     try {
         let user = await User.findOne({email});
 
-    if(user){
-        res.status(400).json({errors: [{msg: 'User already exists}'}]});
-    }
+        if(user){
+            res.status(400).json({errors: [{msg: 'User already exists}'}]});
+        }
 
-    const avatar = gravatar.url(email,{
-        s:'200',
-        r:'pg',
-        d:'mm'
-    })
+        const avatar = gravatar.url(email,{
+            s:'200',
+            r:'pg',
+            d:'mm'
+        })
 
-    user = new User({
-        name,
-        email,
-        avatar,
-        password
-    });
+        user = new User({
+            name,
+            email,
+            avatar,
+            password
+        });
 
-    const salt = await bcrypt.genSalt(10);
+        const salt = await bcrypt.genSalt(10);
 
-    user.password = await bcrypt.hash(password, salt);
+        user.password = await bcrypt.hash(password, salt);
 
-    await user.save();
+        await user.save();
 
-    //Return jsonwebtoken
-    res.send('User registered');
+        //Return jsonwebtoken
+        res.send('User registered');
 
     }catch(err){
         console.error(err.message);
-        res.status(500).send('Server err');
+        res.status(500).send('Server error... ');
     }
 })
 
