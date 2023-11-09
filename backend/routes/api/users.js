@@ -2,8 +2,8 @@
 import express from 'express'
 import user from "../../models/User.js";
 const router = express.Router();
-const gravatar = require('gravatar');
-const bcrypt = require('bcryptjs');
+import gravatar from 'gravatar';
+import bcrypt from 'bcryptjs';
 import { check, validationResult } from 'express-validator';
 
 
@@ -34,7 +34,7 @@ async (req,res) => {
     }
 
     const avatar = gravatar.url(email,{
-        s:'2--,
+        s:'200',
         r:'pg',
         d:'mm'
     })
@@ -54,6 +54,7 @@ async (req,res) => {
 
     //Return jsonwebtoken
     res.send('User route');
+
     }catch(err){
         console.error(err.message);
         res.status(500).send('Server err');
