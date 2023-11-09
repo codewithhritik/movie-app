@@ -1,10 +1,12 @@
 // users.js
 import express from 'express'
-import user from "../../models/User.js";
+import { check, validationResult } from 'express-validator';
+
 const router = express.Router();
 import gravatar from 'gravatar';
 import bcrypt from 'bcryptjs';
-import { check, validationResult } from 'express-validator';
+import User from "../../models/User.js";
+
 
 
 
