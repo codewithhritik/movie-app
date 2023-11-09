@@ -3,6 +3,7 @@ import express from 'express';
 const router = express.Router();
 import { check, validationResult } from 'express-validator';
 
+const User = require('../../models/User');
 
 // @route   POST api/users
 // @desc    Register user
@@ -13,11 +14,28 @@ router.post('/',[
     check('password',
     'Please enter a password with 6 or more characters').isLength({min:6})
 ], 
-(req,res) => {
+
+async (req,res) => {
     const errors = validationResult(req);
     if(!errors.isEmpty()){
         return res.status(400).json({errors: errors.array()});
     }
+
+    const {name, email, password } = req.body;
+
+    try {
+        
+    }
+
+    //See if user exists
+
+    //Get users gravatar
+
+    //Encrypt password
+
+    //Return jsonwebtoken
+
+
 
     res.send('User route');
 })
