@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 import LandingPage from './pages/LandingPage/LandingPage.js';
 import SeatBookingPage from './pages/SeatBookingPage/SeatBookingPage';
+import AdminPage from './pages/AdminPage/AdminPage';
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
   {
     path: "/seat-booking",
     element: <SeatBookingPage />
+  },
+  {
+    path: "/admin",
+    element: <AdminPage />
   }
   
 ]);
