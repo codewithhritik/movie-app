@@ -6,6 +6,7 @@ import PosterCard from '../../components/PosterCard/PosterCard';
 import Button from '../../components/Button/Button';
 import MembershipBox from '../../components/MembershipBox/MembershipBox';
 import BookingPage from '../BookingPage/BookingPage';
+import SeatBookingPage from '../SeatBookingPage/SeatBookingPage';
 
 
 const LandingPage = () => {
@@ -87,10 +88,13 @@ const LandingPage = () => {
       <div className='title-2'>
         <h1>Membership Options</h1>
       </div>
+
+      
       <div className='membership'>
         <MembershipBox text="Regular"/>
         <MembershipBox text="Premium"/>
       </div>
+
     </div>
   );
 }
