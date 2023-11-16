@@ -2,6 +2,8 @@ import React from 'react';
 import './App.css';
 import LoginSignupPage from './LoginPage'; // Import the LoginSignupPage component
 import logo from './logo.svg'; // Import the logo image
+import Login from './components/auth/Login.js';
+import Register from './components/auth/Register.js';
 
 import {
   createBrowserRouter,
@@ -27,7 +29,15 @@ const router = createBrowserRouter([
   {
     path: "/admin",
     element: <AdminPage />
-  }
+  },
+  {
+    path: "/register",
+    element: <Register />
+  },
+  {
+    path: "/login",
+    element: <Login />
+  },
   
 ]);
 
