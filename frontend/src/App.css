@@ -5,6 +5,28 @@ body {
   color: white;
 }
 
+.alert {
+  padding: 0.8re ;
+  margin: 1rem 0;
+  opacity: 0.9;
+  background:var(--light-color);
+  color: white;
+}
+
+.alert-primary{
+  background: var(--primay-color);
+  color:#fff;
+}
+
+.alert-danger{
+  background: var(--danger-color);
+  color:#7a0b0b;
+}
+
+.alert-success{
+  background: var(--success-color);
+  color:#fff;
+}
 
 /* .App {
   text-align: center;

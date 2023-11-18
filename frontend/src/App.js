@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
-import LoginSignupPage from './LoginPage'; // Import the LoginSignupPage component
+import LoginPage from './LoginPage'; // Import the LoginSignupPage component
 import logo from './logo.svg'; // Import the logo image
-import Login from './components/auth/Login.js';
-import Register from './components/auth/Register.js';
+import Register from './UserRegister.js'; 
+import Alert from './pages/alert.js';
 
 import {
   createBrowserRouter,
@@ -12,6 +12,16 @@ import {
 import LandingPage from './pages/LandingPage/LandingPage.js';
 import SeatBookingPage from './pages/SeatBookingPage/SeatBookingPage';
 import AdminPage from './pages/AdminPage/AdminPage';
+import { loadUser } from './actions/auth.js';
+import setAuthToken from './utility/setAuthToken.js';
+
+//Redux
+import { Provider } from 'react-redux';
+import store from './store.js'
+
+if (localStorage.token){
+  setAuthToken(localStorage.token);
+}
 
 const router = createBrowserRouter([
   {
@@ -20,7 +30,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/login",
-    element: <LoginSignupPage />
+    element: <LoginPage />
   },
   {
     path: "/seat-booking",
@@ -34,30 +44,24 @@ const router = createBrowserRouter([
     path: "/register",
     element: <Register />
   },
-  {
-    path: "/login",
-    element: <Login />
-  },
+
   
 ]);
 
 function App() {
+  useEffect(()=>{
+    store.dispatch(loadUser());
+  },[]);
   return (
-    <div className="main">
-      <RouterProvider router={router} />
-    </div>
+    <Provider store={store}> {/* Wrap your App with the Provider component */}
+      <div className="main">
+      <Alert />
+        <RouterProvider router={router} />
+      </div>
+    </Provider>
   );
 
 }
 
 export default App;
 
-
-// return (
-  //   <div className="App">
-  //     <header className="App-header">
-  //       <img src={logo} className="App-logo" alt="logo" /> {/* Display the logo */}
-  //       <LoginSignupPage /> {/* Include the LoginSignupPage component here */}
-  //     </header>
-  //   </div>
-  // );

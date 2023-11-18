@@ -1,43 +1,78 @@
-import React, { useState } from 'react';
-import Description from './Description';
+import React, { useState, useEffect  } from 'react';
+import Description from './Description'; // Make sure this path is correct
+import Navbar from './components/Navbar/Navbar'; // Import the Navbar component
 
-function LoginSignupPage() {
-  const [isLogin, setIsLogin] = useState(true);
+import { Link } from 'react-router-dom'; 
+import { Form, Button, Row, Col } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
 
-  const handleToggle = () => {
-    setIsLogin(!isLogin);
+import axios from 'axios';
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+import { loadUser} from './actions/auth'
+import { login } from './actions/auth';
+import { setAlert } from './actions/alert'; 
+
+const LoginPage = ({ setAlert, login }) => {
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+  });
+
+  const { email, password } = formData;
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // Handle form submission for login or signup here
+
+    try {
+      await login(email, password); // Call login action with email and password
+    } catch (err) {
+      console.error('Error:', err);
+      setAlert('An error occurred during login.', 'danger');
+    }
   };
 
   return (
     <div>
-      <Description /> {/* Add the Description component here */}
-      <h2>{isLogin ? 'Log In' : 'Sign Up'}</h2>
+      <Navbar />
+      <Description />
+      <h2>{'Log In'}</h2>
       <form onSubmit={handleSubmit}>
-        {!isLogin && (
-          <div>
-            <label htmlFor="name">Name</label>
-            <input type="text" id="name" name="name" required />
-          </div>
-        )}
         <label htmlFor="email">Email</label>
-        <input type="email" id="email" name="email" required />
+        <input
+          type="email"
+          id="email"
+          name="email"
+          value={email}
+          onChange={handleChange}
+          required
+        />
         <label htmlFor="password">Password</label>
-        <input type="password" id="password" name="password" required />
-        <button type="submit">{isLogin ? 'Log In' : 'Sign Up'}</button>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          value={password}
+          onChange={handleChange}
+          required
+        />
+        <button type="submit">{'Log In'}</button>
       </form>
       <p>
-        {isLogin ? "Don't have an account?" : "Already have an account?"}{' '}
-        <button onClick={handleToggle}>
-          {isLogin ? 'Sign Up' : 'Log In'}
-        </button>
+        {'Don\'t have an account? '}
+        <Link to="/register">{'Sign Up'}</Link>
       </p>
     </div>
   );
-}
+};
 
-export default LoginSignupPage;
+LoginPage.propTypes = {
+  setAlert: PropTypes.func.isRequired,
+  login: PropTypes.func.isRequired,
+};
+
+export default connect(null, { setAlert, login })(LoginPage);
