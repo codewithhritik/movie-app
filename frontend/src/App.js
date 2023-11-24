@@ -10,6 +10,7 @@ import {
 import LandingPage from './pages/LandingPage/LandingPage.js';
 import SeatBookingPage from './pages/SeatBookingPage/SeatBookingPage';
 import AdminPage from './pages/AdminPage/AdminPage';
+import PaymentSuccess from './pages/PaymentSuccess/PaymentSuccess'
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
   {
     path: "/admin",
     element: <AdminPage />
+  },
+  {
+    path: "/payment-success",
+    element: <PaymentSuccess />
   }
   
 ]);
