@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
 import './App.css';
-import LoginPage from './LoginPage'; // Import the LoginSignupPage component
+import LoginPage from './pages/Login&RegisterPage/LoginPage'; // Import the LoginSignupPage component
 import logo from './logo.svg'; // Import the logo image
-import Register from './UserRegister.js'; 
+import Register from './pages/Login&RegisterPage/UserRegister'; 
 import Alert from './pages/alert.js';
 
 import {
