@@ -4,6 +4,7 @@
   "private": true,
   "proxy": "http://localhost:8000",
   "dependencies": {
+    "@mdi/js": "^7.3.67",
     "@mdi/light-js": "^0.2.63",
     "@mdi/react": "^1.6.1",
     "@testing-library/jest-dom": "^5.17.0",
@@ -11,6 +12,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.6.2",
     "bcryptjs": "^2.4.3",
+    "mdi-js": "^1.0.1",
     "react": "^18.2.0",
     "react-bootstrap": "^2.9.1",
     "react-dom": "^18.2.0",

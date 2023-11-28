@@ -12,6 +12,7 @@ import {
 import LandingPage from './pages/LandingPage/LandingPage.js';
 import SeatBookingPage from './pages/SeatBookingPage/SeatBookingPage';
 import AdminPage from './pages/AdminPage/AdminPage';
+import PaymentSuccess from './pages/PaymentSuccess/PaymentSuccess'
 import { loadUser } from './actions/auth.js';
 import setAuthToken from './utility/setAuthToken.js';
 
@@ -41,10 +42,13 @@ const router = createBrowserRouter([
     element: <AdminPage />
   },
   {
+    path: "/payment-success",
+    element: <PaymentSuccess />
+  },
+  {
     path: "/register",
     element: <Register />
   },
-
   
 ]);
 
