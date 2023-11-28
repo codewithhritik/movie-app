@@ -8,8 +8,10 @@ import Alert from './pages/alert.js';
 import {
   createBrowserRouter,
   RouterProvider,
+  BrowserRouter as Router, Route, Switch
 } from "react-router-dom";
 import LandingPage from './pages/LandingPage/LandingPage.js';
+import BookingPage from './pages/BookingPage/BookingPage.js';
 import SeatBookingPage from './pages/SeatBookingPage/SeatBookingPage';
 import AdminPage from './pages/AdminPage/AdminPage';
 import { loadUser } from './actions/auth.js';
@@ -33,6 +35,10 @@ const router = createBrowserRouter([
     element: <LoginPage />
   },
   {
+    path: "/booking",
+    element: <BookingPage />
+  },
+  {
     path: "/seat-booking",
     element: <SeatBookingPage />
   },
@@ -44,6 +50,7 @@ const router = createBrowserRouter([
     path: "/register",
     element: <Register />
   },
+  
 
   
 ]);

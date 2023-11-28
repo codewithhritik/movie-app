@@ -64,6 +64,13 @@ export default function(
                 isAuthenticated: false,
                 loading:false
             };
+            case USER_LOGOUT:
+                return {
+                  ...state,
+                  isAuthenticated: false,
+                  user: null,
+                  accessToken: null,
+                };
 
         default:
             return state;

@@ -1,8 +1,9 @@
 import React, { useState, useEffect  } from 'react';
+import { Link, useNavigate } from 'react-router-dom'; 
+
 import Description from '../../Description'; // Make sure this path is correct
 import Navbar from '../../components/Navbar/Navbar'; // Import the Navbar component
 
-import { Link } from 'react-router-dom'; 
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -23,6 +24,8 @@ const LoginPage = ({ setAlert, login }) => {
 
   const { email, password } = formData;
 
+  const navigate = useNavigate(); // React Router hook for navigation
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -31,10 +34,14 @@ const LoginPage = ({ setAlert, login }) => {
     event.preventDefault();
 
     try {
-      await login(email, password); // Call login action with email and password
+      // Call login action with email and password
+      await login(email, password);
+
+      // Redirect to '/booking' after successful login
+      //navigate('/booking'); // Redirect to BookingPage after successful login, not working YET
     } catch (err) {
       console.error('Error:', err);
-      setAlert('An error occurred during login.', 'danger');
+      setAlert('Login Failed.', 'danger');
     }
   };
 
