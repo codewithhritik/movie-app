@@ -6,6 +6,7 @@ import {
     USER_REGISTER_SUCCESS,
     USER_LOADED,
     AUTH_ERROR,
+    LOGOUT,
 
 } from './types';
 import { setAlert } from './alert'; // Import the setAlert action
@@ -126,5 +127,28 @@ export const login = (email, password) => async (dispatch) => {
       });
       dispatch(setAlert('Login Failed', 'danger'));
     }
+  }
+};
+
+// Logout User
+export const logout = () => async (dispatch) => {
+  try {
+    // Clear token from local storage
+    localStorage.removeItem('token');
+
+    // Remove token from headers
+    setAuthToken(null);
+
+    // Dispatch LOGOUT action to reset the state
+    dispatch({ type: LOGOUT });
+
+    // Display logout success message
+    dispatch(setAlert('Logged out successfully!', 'success'));
+  } catch (err) {
+    console.error('Logout Error:', err);
+    // Dispatch AUTH_ERROR in case of logout failure
+    dispatch({ type: AUTH_ERROR });
+    // Display logout failure message
+    dispatch(setAlert('Logout Failed', 'danger'));
   }
 };

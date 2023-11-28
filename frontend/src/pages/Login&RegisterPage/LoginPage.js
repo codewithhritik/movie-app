@@ -7,7 +7,6 @@ import Navbar from '../../components/Navbar/Navbar'; // Import the Navbar compon
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 
-import axios from 'axios';
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { loadUser} from '../../actions/auth'
