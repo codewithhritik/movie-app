@@ -13,7 +13,11 @@ const TheatreSchema = new mongoose.Schema({
     timings: [{
         type: String, // Assuming timings are represented as strings for simplicity
         required: true
-    }]
+    }],
+    seatingCapacity: {
+        type: Number,
+        required: true
+    }
 });
 
 const MovieSchema = new mongoose.Schema({

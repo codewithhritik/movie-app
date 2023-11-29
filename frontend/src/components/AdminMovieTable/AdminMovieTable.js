@@ -94,6 +94,8 @@ function AdminMovieTable({ movies }) {
             console.error('Error: ', error);
         });
     };
+
+    const formatTimings = (timings) => timings.join(", ");
     
     
     return (
@@ -118,22 +120,34 @@ function AdminMovieTable({ movies }) {
                         <TableCell>Cover</TableCell>
                         <TableCell>Title</TableCell>
                         <TableCell>Description</TableCell>
+                        <TableCell>Theaters and Timings</TableCell>
                         <TableCell>Action</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {
-                        allMovies.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((movie, index) => (
-                            <TableRow
-                                key={movie._id || index}
+                        allMovies
+                        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                        .map((movie, index) => {
+                            const correctIndex = page * rowsPerPage + index + 1;
+                            return (
+                                <TableRow
+                                key={movie._id || correctIndex}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
-                                <TableCell>{index + 1}</TableCell>
+                                <TableCell>{correctIndex}</TableCell>
                                 <TableCell>
                                     <img src={movie.picture} alt={movie.title} className='movie-cover'></img>
                                 </TableCell>
                                 <TableCell style={{ width: '15%' }}>{movie.title}</TableCell>
                                 <TableCell className="description-column">{movie.description}</TableCell>
+                                <TableCell>
+                                    {movie.theatres.map(theatre => (
+                                        <div key={theatre._id}>
+                                            {theatre.name} - {formatTimings(theatre.timings)}
+                                        </div>
+                                    ))}
+                                </TableCell>
                                 <TableCell>
                                     <IconButton onClick={() => handleEditClick(movie)}>
                                         <EditIcon />
@@ -143,8 +157,9 @@ function AdminMovieTable({ movies }) {
                                     </IconButton>
                                 </TableCell>
                             </TableRow>
-                        ))
-                    }
+                            );
+                            
+                        })}
                 </TableBody>
             </Table>
             <TablePagination

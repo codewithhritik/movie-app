@@ -1,43 +1,36 @@
 import mongoose from 'mongoose';
-import cors from "cors"
-import dotenv from "dotenv"
-// import mongoose from "mongoose"
 import MovieSchema from '../models/Movies.js';
 
-// console.log(Movie);
-// const mongoose = require('mongoose');
-
 async function connectAndUpdate() {
-    const uri = ""; // Replace with your MongoDB connection URI and database name
-    await mongoose.connect(uri);
+    // Replace with your MongoDB connection URI and database name
+    const uri = "";
+    await mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
     try {
-        const Movies = mongoose.model('Movies', MovieSchema); // Assuming you have defined the movieSchema
+        // Check if the Movies model has already been compiled
+        let Movies;
+        if (mongoose.models.Movies) {
+            Movies = mongoose.model('Movies');
+        } else {
+            // If not, compile the model from the schema
+            Movies = mongoose.model('Movies', MovieSchema);
+        }
 
-        // Define the common timings array
-        const commonTimings = ['15:40', '17:20', '8:40', '21:00'];
+        // Define a default seating capacity
+        const defaultSeatingCapacity = 90; // Modify this to what makes sense for your application
 
-        // Update documents without the theatres field
+        // Update all theaters in all movies to have the default seating capacity
         const result = await Movies.updateMany(
-            { theatres: { $exists: false } }, // Filter for documents without the theatres field
-            {
-                $set: {
-                    theatres: [
-                        { name: 'San Jose', location: 'California', timings: commonTimings },
-                        { name: 'San Francisco', location: 'California', timings: commonTimings },
-                        { name: 'New York', location: 'New York', timings: commonTimings },
-                    ],
-                },
-                // You can modify this update statement based on your specific needs
-            }
+            { "theatres.seatingCapacity": { $exists: false } }, // This matches documents where seatingCapacity does not exist
+            { $set: { "theatres.$[].seatingCapacity": defaultSeatingCapacity } } // This sets a default seatingCapacity for all theaters
         );
 
         console.log(`${result.nModified} documents updated successfully`);
+    } catch (error) {
+        console.error('An error occurred:', error);
     } finally {
         await mongoose.disconnect();
     }
 }
 
 connectAndUpdate().catch(console.error);
-
-
