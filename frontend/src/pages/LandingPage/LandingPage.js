@@ -7,6 +7,7 @@ import Button from '../../components/Button/Button';
 import MembershipBox from '../../components/MembershipBox/MembershipBox';
 import BookingPage from '../BookingPage/BookingPage';
 import SeatBookingPage from '../SeatBookingPage/SeatBookingPage';
+import { Link } from 'react-router-dom';
 
 
 const LandingPage = () => {
@@ -41,6 +42,10 @@ const LandingPage = () => {
     
   }
 
+  const redirectPath = !!localStorage.getItem('token') ? '/seat-booking' : '/login';
+  // console.log(redirectPath)
+ 
+
   useEffect(() => {
     // Fetch movies when the component mounts
     getMovies()
@@ -55,9 +60,11 @@ const LandingPage = () => {
       });
   }, []);
 
+  // const isAuthenticated = !!localStorage.getItem('token');
+
   return (
     <div className='container'>
-      <Navbar isLoggedIn={false} />
+      <Navbar/>
       <div className='title-1'>
         <h1>Now Showing</h1>
       </div>
@@ -72,9 +79,12 @@ const LandingPage = () => {
             })}
         </div>
       </div>
-      <div className='proceed-btn'>
-        <Button text={'Proceed'}/>
-      </div>
+      <Link to={redirectPath}>
+        <div className='proceed-btn'>
+          <Button text={'Proceed'}/>
+        </div>
+      </Link>
+      
       <BookingPage movie={selectedMovie} theatres={selectedMovieTheatres} />
       <div className='title-2'>
         <h1>Upcoming Movies</h1>

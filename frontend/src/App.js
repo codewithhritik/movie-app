@@ -8,8 +8,10 @@ import Alert from './pages/alert.js';
 import {
   createBrowserRouter,
   RouterProvider,
+  BrowserRouter as Router, Route, Switch
 } from "react-router-dom";
 import LandingPage from './pages/LandingPage/LandingPage.js';
+import BookingPage from './pages/BookingPage/BookingPage.js';
 import SeatBookingPage from './pages/SeatBookingPage/SeatBookingPage';
 import AdminPage from './pages/AdminPage/AdminPage';
 import PaymentSuccess from './pages/PaymentSuccess/PaymentSuccess'
@@ -32,6 +34,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <LoginPage />
+  },
+  {
+    path: "/booking",
+    element: <BookingPage />
   },
   {
     path: "/seat-booking",

@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import "./BookingPage.css"
 import PosterCard from '../../components/PosterCard/PosterCard';
-
+import { Link } from 'react-router-dom';
 import LocationButton from '../../components/LocationButton/LocationButton';
 import DateButton from '../../components/DateButton/DateButton';
 import TimeButton from '../../components/TimeButton/TimeButton';
@@ -46,6 +46,7 @@ const BookingPage = ({movie, theatres}) => {
         return <p>Loading...</p>; // or any other loading indicator
     }
 
+    const redirectPath = !!localStorage.getItem('token') ? '/seat-booking' : '/login';
     return (
     <div className="booking-page"> 
         <div className='booking-page-content'>
@@ -105,8 +106,9 @@ const BookingPage = ({movie, theatres}) => {
                 <PosterCard movie={movie}/>
             </div>
         </div>
-        
-        <Button text={'Proceed'}/>
+        <Link to={redirectPath} >
+            <Button text={'Proceed'}/>
+        </Link>
     </div>
   )
 }

@@ -1,27 +1,33 @@
 import React, { useState, useEffect  } from 'react';
+import { Link, useNavigate } from 'react-router-dom'; 
+
 import Description from '../../Description'; // Make sure this path is correct
 import Navbar from '../../components/Navbar/Navbar'; // Import the Navbar component
 
-import { Link } from 'react-router-dom'; 
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 
-import axios from 'axios';
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { loadUser} from '../../actions/auth'
 import { login } from '../../actions/auth';
 import { setAlert } from '../../actions/alert'; 
 
+// import { useHistory } from 'react-router-dom';
+
 import "./LoginPage.css"
 
 const LoginPage = ({ setAlert, login }) => {
+
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
 
   const { email, password } = formData;
+
+  const navigate = useNavigate(); // React Router hook for navigation
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -31,17 +37,21 @@ const LoginPage = ({ setAlert, login }) => {
     event.preventDefault();
 
     try {
-      await login(email, password); // Call login action with email and password
+      // Call login action with email and password
+      await login(email, password);
+      navigate('/seat-booking');
+      // Redirect to '/booking' after successful login
+      //navigate('/booking'); // Redirect to BookingPage after successful login, not working YET
     } catch (err) {
       console.error('Error:', err);
-      setAlert('An error occurred during login.', 'danger');
+      setAlert('Login Failed.', 'danger');
     }
   };
 
   return (
     <div className='login-container'>
       <div className='login-navbar'>
-        <Navbar />
+        <Navbar isAuthenticated={false} />
       </div>
       
       <div className='login-text'>
