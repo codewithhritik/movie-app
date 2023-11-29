@@ -4,17 +4,13 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux'; // Import connect
 import PropTypes from 'prop-types';
 import { logout } from '../../actions/auth'; // Import the logout action
+import { connect } from 'react-redux'; // Import connect
+import PropTypes from 'prop-types';
+import { logout } from '../../actions/auth'; // Import the logout action
 
 import CinemasLogo from '../../assets/images/Logo/CinemasLogo.png'
 
-
-// const mapStateToProps = (state) => ({
-//   isAuthenticated: state.auth && state.auth.isAuthenticated,
-// });
-
-
 const Navbar = () => {
-
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
@@ -34,7 +30,7 @@ const Navbar = () => {
         </Link>
       </div>
       <div className="navbar-buttons">
-        {!isAuthenticated ? (
+      {!isAuthenticated ? (
           <>
             <Link to="/login">
               <button className="login-button">Login</button>
@@ -55,11 +51,5 @@ const Navbar = () => {
     </nav>
   );
 }
-
-// Navbar.propTypes = {
-//   isAuthenticated: PropTypes.bool.isRequired,
-// };
-
-
 
 export default Navbar;

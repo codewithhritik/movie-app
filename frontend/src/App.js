@@ -12,6 +12,7 @@ import {
 } from "react-router-dom";
 import LandingPage from './pages/LandingPage/LandingPage.js';
 import BookingPage from './pages/BookingPage/BookingPage.js';
+import BookingPage from './pages/BookingPage/BookingPage.js';
 import SeatBookingPage from './pages/SeatBookingPage/SeatBookingPage';
 import AdminPage from './pages/AdminPage/AdminPage';
 import PaymentSuccess from './pages/PaymentSuccess/PaymentSuccess'
