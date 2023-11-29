@@ -36,8 +36,8 @@ const LoginPage = ({ setAlert, login }) => {
       // Call login action with email and password
       await login(email, password);
 
-      // Redirect to '/booking' after successful login
-      //navigate('/booking'); // Redirect to BookingPage after successful login, not working YET
+      // Redirect to '/landing' after successful login
+      navigate('/'); // Redirect to BookingPage after successful login, not working YET
     } catch (err) {
       console.error('Error:', err);
       setAlert('Login Failed.', 'danger');

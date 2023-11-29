@@ -58,7 +58,7 @@ export default function(
         case AUTH_ERROR:
         case USER_LOGIN_FAIL:
             localStorage.removeItem('token');
-            console.log('USER_REGISTER_FAIL dispatched:', action.payload);
+            //console.log('USER_REGISTER_FAIL dispatched:', action.payload);
             return{
                 ...state,
                 token:null,
