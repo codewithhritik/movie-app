@@ -17,7 +17,6 @@ function AdminPage() {
     return (
         <div>
         <Navbar />
-        <p>Admin Page</p>
         <AdminMovieTable movies={movies} />
         </div>
     )
