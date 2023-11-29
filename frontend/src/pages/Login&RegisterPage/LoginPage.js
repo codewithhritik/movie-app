@@ -1,6 +1,7 @@
 import React, { useState, useEffect  } from 'react';
 import { Link, useNavigate } from 'react-router-dom'; 
 
+
 import Description from '../../Description'; // Make sure this path is correct
 import Navbar from '../../components/Navbar/Navbar'; // Import the Navbar component
 
@@ -13,9 +14,13 @@ import { loadUser} from '../../actions/auth'
 import { login } from '../../actions/auth';
 import { setAlert } from '../../actions/alert'; 
 
+// import { useHistory } from 'react-router-dom';
+
 import "./LoginPage.css"
 
 const LoginPage = ({ setAlert, login }) => {
+
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -35,9 +40,9 @@ const LoginPage = ({ setAlert, login }) => {
     try {
       // Call login action with email and password
       await login(email, password);
-
-      // Redirect to '/landing' after successful login
-      navigate('/'); // Redirect to BookingPage after successful login, not working YET
+      navigate('/');
+      // Redirect to '/booking' after successful login
+      //navigate('/booking'); // Redirect to BookingPage after successful login, not working YET
     } catch (err) {
       console.error('Error:', err);
       setAlert('Login Failed.', 'danger');
@@ -47,7 +52,7 @@ const LoginPage = ({ setAlert, login }) => {
   return (
     <div className='login-container'>
       <div className='login-navbar'>
-        <Navbar />
+        <Navbar isAuthenticated={false} />
       </div>
       
       <div className='login-text'>

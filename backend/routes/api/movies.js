@@ -1,5 +1,6 @@
 import express from "express"
 import Movies from "../../models/Movies.js";
+// import UpcomingMovies from "../../models/UpcomingMovies.js";
 
 const router = express.Router();
 
@@ -45,10 +46,12 @@ router.get("/:id", async (req, res) => {
     }
 })
 
+
 // GET ALL
 router.get("/", async (req, res) => {
     try {
         const movies = await Movies.find();
+        console.log(movies)
         res.status(200).json(movies)
     } catch(err) {
         res.status(500).json(err)

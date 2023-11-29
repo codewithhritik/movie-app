@@ -54,7 +54,7 @@ const Register = ({setAlert, register}) =>{
   return (
     <div className='register-container'>
       <div className='register-navbar'>
-        <Navbar /> {/* Include the Navbar component */}
+        <Navbar isAuthenticated={false} /> {/* Include the Navbar component */}
       </div>
       <div className='register-'>
 

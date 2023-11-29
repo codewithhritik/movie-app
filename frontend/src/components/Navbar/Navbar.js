@@ -1,12 +1,21 @@
-import React from 'react';
-import './Navbar.css';
+import React, {useState, useEffect} from 'react';
+import './Navbar.css'
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+// import PropTypes from 'prop-types';
+import { logout } from '../../actions/auth'; // Import the logout action
+import { connect } from 'react-redux'; // Import connect
 import PropTypes from 'prop-types';
-import { logout } from '../../actions/auth';
-import CinemasLogo from '../../assets/images/Logo/CinemasLogo.png';
 
-const Navbar = ({ logout }) => {
+
+import CinemasLogo from '../../assets/images/Logo/CinemasLogo.png'
+
+const Navbar = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    setIsAuthenticated(!!localStorage.getItem('token'));
+  }, [])
+  
   const handleLogout = () => {
     // Call the logout action when logout is clicked
     logout();
@@ -20,22 +29,26 @@ const Navbar = ({ logout }) => {
         </Link>
       </div>
       <div className="navbar-buttons">
-        <Link to="/login">
-          <button className="login-button">Login</button>
-        </Link>
-        <Link to="/register">
-          <button className="register-button">Register</button>
-        </Link>
-        <button className="logout-button" onClick={handleLogout}>
-          Logout
-        </button>
+      {!isAuthenticated ? (
+          <>
+            <Link to="/login">
+              <button className="login-button">Login</button>
+            </Link>
+            <Link to="/register">
+              <button className="register-button">Register</button>
+            </Link>
+          </>
+        ) : (
+          <>
+            <Link to="/profile">
+              <button className="profile-button">Profile</button>
+            </Link>
+            <button className="logout-button" onClick={handleLogout}>Logout</button>
+          </>
+        )}
       </div>
     </nav>
   );
-};
+}
 
-Navbar.propTypes = {
-  logout: PropTypes.func.isRequired,
-};
-
-export default connect(null, { logout })(Navbar);
+export default Navbar;
