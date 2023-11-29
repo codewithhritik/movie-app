@@ -1,12 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import './Navbar.css'
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux'; // Import connect
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { logout } from '../../actions/auth'; // Import the logout action
 import { connect } from 'react-redux'; // Import connect
 import PropTypes from 'prop-types';
-import { logout } from '../../actions/auth'; // Import the logout action
+
 
 import CinemasLogo from '../../assets/images/Logo/CinemasLogo.png'
 
