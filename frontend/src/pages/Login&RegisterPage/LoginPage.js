@@ -39,7 +39,7 @@ const LoginPage = ({ setAlert, login }) => {
     try {
       // Call login action with email and password
       await login(email, password);
-      navigate('/seat-booking');
+      navigate('/');
       // Redirect to '/booking' after successful login
       //navigate('/booking'); // Redirect to BookingPage after successful login, not working YET
     } catch (err) {
