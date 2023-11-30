@@ -107,7 +107,7 @@ const LandingPage = () => {
 
       
       <div className='membership'>
-        <MembershipBox text="Regular"/>
+        {/* <MembershipBox text="Regular"/> */}
         <MembershipBox text="Premium"/>
       </div>
 

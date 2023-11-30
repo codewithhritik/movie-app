@@ -21,6 +21,7 @@ import setAuthToken from './utility/setAuthToken.js';
 //Redux
 import { Provider } from 'react-redux';
 import store from './store.js'
+import GetPremiumPage from './pages/GetPremiumPage/GetPremiumPage';
 
 if (localStorage.token){
   setAuthToken(localStorage.token);
@@ -55,7 +56,10 @@ const router = createBrowserRouter([
     path: "/register",
     element: <Register />
   },
-  
+  {
+    path: '/get-premium',
+    element: <GetPremiumPage />
+  }
 ]);
 
 function App() {
