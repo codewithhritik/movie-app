@@ -17,6 +17,8 @@ import axios from 'axios';
 import './UserRegister.css'
 
 const Register = ({setAlert, register}) =>{
+
+
   const [formData, setFormData] = useState({
     name:'',
     email: '',
@@ -33,6 +35,7 @@ const Register = ({setAlert, register}) =>{
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    // console.log("before try catch",userData)
     if (password !== password2) {
       setAlert('Passwords do not match', 'danger');
     } else {
@@ -41,9 +44,11 @@ const Register = ({setAlert, register}) =>{
         email,
         password
       };
+      
 
       try {
         await register(newUser); 
+        // console.log("After try catch",userData)
       } catch (err) {
         console.error('Error:', err);
       }

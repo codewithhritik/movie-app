@@ -1,7 +1,13 @@
-import { combineReducers } from "redux";
-import alert from './alert';
+// reducers/index.js
+import { combineReducers } from 'redux';
+// import alert
+import alertReducer from './alert';
+import authReducer from './auth';
 
-export default combineReducers({
-    alert
-
+const rootReducer = combineReducers({
+  alert: alertReducer,
+  auth: authReducer,
+  // Add other reducers as needed
 });
+
+export default rootReducer;

@@ -8,7 +8,7 @@ import MembershipBox from '../../components/MembershipBox/MembershipBox';
 import BookingPage from '../BookingPage/BookingPage';
 import SeatBookingPage from '../SeatBookingPage/SeatBookingPage';
 import { Link } from 'react-router-dom';
-
+import { useSelector } from 'react-redux/es/hooks/useSelector';
 
 const LandingPage = () => {
   
@@ -20,7 +20,8 @@ const LandingPage = () => {
   
   const bookingPageRef = useRef();
 
-
+  const userData = useSelector((state) => state.auth.user);
+  console.log(userData);
 
 
   const handlePosterCardClick = (movie) => {
@@ -51,6 +52,7 @@ const LandingPage = () => {
     getMovies()
       .then((data) => {
         // console.log(data);
+        console.log(data);
         setMovies(data.slice(0,8));
         setSelectedMovie(data[0]);
         setSelectedMovieTheatres(data[0].theatres)

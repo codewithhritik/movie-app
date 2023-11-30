@@ -9,6 +9,7 @@ import User from '../../models/User.js';
 router.get('/', auth, async (req,res)=> {
     try{
         const user = await User.findById(req.user.id).select('-password');
+        console.log("This is user", user);
         res.json(user);
     } catch(err){
         console.error(err.message);
@@ -21,7 +22,6 @@ router.post('/',[
     check('email','Please include a valid email').isEmail(),
     check('password','Password is required').exists()
 ], 
-
 async (req,res) => {
     const errors = validationResult(req);
     if(!errors.isEmpty()){
@@ -29,7 +29,6 @@ async (req,res) => {
     }
 
     const { email, password } = req.body;
-
     try {
         let user = await User.findOne({email});
 
@@ -38,7 +37,7 @@ async (req,res) => {
         }
 
         const isMatch = await bcrypt.compare(password, user.password);
-
+        console.log(user);
         if(!isMatch){
             return res
             .status(400)
@@ -46,21 +45,36 @@ async (req,res) => {
         }
 
 
-
+        console.log(user);
         //Return jsonwebtoken
         const payload = {
             user:{
-                id: user.id
+                id: user.id,
             }
         }
-
+        console.log(payload);
         jwt.sign(
             payload,
             process.env.jwtSecret,
             { expiresIn:360000},
             (err,token) => {
                 if(err)throw err;
-                res.json({token});
+                res.json({
+                    token,
+                    user: {
+                        id: user.id,
+                        name: user.name,
+                        email: user.email,
+                        avatar: user.avatar,
+                        role: user.role,
+                        membership: user.membership,
+                        membershipExpiryDate: user.membershipExpiryDate,
+                        rewardPoints: user.rewardsPoints,
+                        pastMovies: user.pastMovies,
+                        bookings: user.bookings,
+                        date: user.date
+                    },
+                });
             }
             );
 

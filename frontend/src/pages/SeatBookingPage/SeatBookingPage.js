@@ -2,8 +2,22 @@ import React, { useState, useEffect } from 'react';
 import './SeatBookingPage.css'; // Import your CSS file for styling
 import Button from '../../components/Button/Button';
 import convertSeatToString from '../../utility/convertSeatToString'
-
+import { useLocation } from 'react-router-dom';
+import { set } from 'mongoose';
 const SeatBookingPage = () => {
+
+    const location = useLocation();
+
+    // console.log(location.state);
+    const movie = location.state?.movie;
+    const theatre = location.state?.selectedLocation;
+    const seats = location.state?.selectedTime;
+    console.log("Movie --->", movie)
+    console.log("Theatre -->", theatre)
+    console.log("Seats -->", seats)
+    // console.log(location.state.selectedLocation)
+
+    // console.log(movie.theatres.showTimings);
   
   
     const rows = 7;
@@ -16,21 +30,21 @@ const SeatBookingPage = () => {
 const [seatAvailability, setSeatAvailability] = useState([]);
 const [selectedSeats, setSelectedSeats] = useState([]);
 
-const initialSeats = [
-[{ status: 'available' },{ status: 'unavailable' },{ status: 'unavailable' },{ status: 'unavailable' },{ status: 'unavailable' },{ status: 'available' },{ status: 'unavailable' },{ status: 'available' },{ status: 'available' },{ status: 'unavailable' },],
-[{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'unavailable' },{ status: 'available' },{ status: 'unavailable' },{ status: 'available' },{ status: 'available' },{ status: 'unavailable' } ],
-[{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'unavailable' },{ status: 'available' },{ status: 'unavailable' },{ status: 'available' },{ status: 'available' },{ status: 'unavailable' } ],
-[{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'unavailable' },{ status: 'unavailable' },{ status: 'available' },{ status: 'unavailable' },{ status: 'available' },{ status: 'available' },{ status: 'unavailable' } ],
-[{ status: 'available' },{ status: 'unavailable' },{ status: 'unavailable' },{ status: 'available' },{ status: 'unavailable' },{ status: 'available' },{ status: 'unavailable' },{ status: 'available' },{ status: 'available' },{ status: 'unavailable' } ],
-[{ status: 'available' },{ status: 'unavailable' },{ status: 'unavailable' },{ status: 'available' },{ status: 'unavailable' },{ status: 'available' },{ status: 'unavailable' },{ status: 'available' },{ status: 'available' },{ status: 'available' } ],
-[{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' } ],
-[{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' } ],
-[{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' } ],
-]
+// const initialSeats = [
+// [{ status: 'available' },{ status: 'unavailable' },{ status: 'unavailable' },{ status: 'unavailable' },{ status: 'unavailable' },{ status: 'available' },{ status: 'unavailable' },{ status: 'available' },{ status: 'available' },{ status: 'unavailable' },],
+// [{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'unavailable' },{ status: 'available' },{ status: 'unavailable' },{ status: 'available' },{ status: 'available' },{ status: 'unavailable' } ],
+// [{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'unavailable' },{ status: 'available' },{ status: 'unavailable' },{ status: 'available' },{ status: 'available' },{ status: 'unavailable' } ],
+// [{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'unavailable' },{ status: 'unavailable' },{ status: 'available' },{ status: 'unavailable' },{ status: 'available' },{ status: 'available' },{ status: 'unavailable' } ],
+// [{ status: 'available' },{ status: 'unavailable' },{ status: 'unavailable' },{ status: 'available' },{ status: 'unavailable' },{ status: 'available' },{ status: 'unavailable' },{ status: 'available' },{ status: 'available' },{ status: 'unavailable' } ],
+// [{ status: 'available' },{ status: 'unavailable' },{ status: 'unavailable' },{ status: 'available' },{ status: 'unavailable' },{ status: 'available' },{ status: 'unavailable' },{ status: 'available' },{ status: 'available' },{ status: 'available' } ],
+// [{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' } ],
+// [{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' } ],
+// [{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' } ],
+// ]
 
 
     useEffect(() => {
-      setSeatAvailability(initialSeats)
+      setSeatAvailability(seats.seats)
     }, [])
     
   
@@ -99,11 +113,12 @@ const initialSeats = [
   return (
     <div className="seat-booking-container">
         <div className='seat-booking-title'>
-            <h2>Select Seat</h2>
+            <h2>Select Seat : {movie.title} in {theatre} at {seats.timing}</h2>
         </div>
       
         {/* <p>Total Available Seats: {totalAvailableSeats}</p> */}
         <div className="seat-grid">
+            {console.log(seatAvailability)}
             {seatAvailability.map((row, rowIndex) => (
             <div key={rowIndex} className="seat-row">
                 {row.map((isAvailable, seatIndex) => (
@@ -112,7 +127,7 @@ const initialSeats = [
                     className={`seat ${isAvailable.status === 'available' ? 'available' : isAvailable.status === 'selected' ? 'selected' : 'unavailable'}`}
                     onClick={() => handleSeatClick(rowIndex, seatIndex)}
                 >
-                    {convertSeatToString({rowIndex,seatIndex})}
+                    {isAvailable.seatNumber}
                 </div>
                 ))}
             </div>
@@ -137,7 +152,9 @@ const initialSeats = [
                     Seat Numbers: 
                 </div>
                 <div className='seat-numbers'>
+                    {/* {console.log(selectedSeats)} */}
                     {selectedSeats.map((seat,idx) => {
+                        // console.log(seat);
                         return(
                             <p key={idx}>
                                 {convertSeatToString(seat)}

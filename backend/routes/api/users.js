@@ -29,6 +29,7 @@ async (req,res) => {
 
     try {
         let user = await User.findOne({email});
+        console.log(user);
 
         if(user){
             return res.status(400).json({errors: [{msg: 'User already exists'}]});
@@ -46,6 +47,7 @@ async (req,res) => {
             avatar,
             password
         });
+        console.log(user);
 
         const salt = await bcrypt.genSalt(10);
 
@@ -66,7 +68,22 @@ async (req,res) => {
             { expiresIn:360000},
             (err,token) => {
                 if(err)throw err;
-                res.json({token});
+                res.json({
+                    token,
+                    user: {
+                        id: user.id,
+                        name: user.name,
+                        email: user.email,
+                        avatar: user.avatar,
+                        role: user.role,
+                        membership: user.membership,
+                        membershipExpiryDate: user.membershipExpiryDate,
+                        rewardPoints: user.rewardsPoints,
+                        pastMovies: user.pastMovies,
+                        bookings: user.bookings,
+                        date: user.date
+                    },
+                });
             }
             );
 

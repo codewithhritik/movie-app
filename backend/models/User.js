@@ -37,7 +37,7 @@ const UserSchema = new mongoose.Schema({
     pastMovies: [{
         movieId: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Movie'
+            ref: 'Movies'
         },
         date: {
             type: Date,
