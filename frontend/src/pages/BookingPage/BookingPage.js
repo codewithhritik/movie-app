@@ -6,6 +6,8 @@ import LocationButton from '../../components/LocationButton/LocationButton';
 import DateButton from '../../components/DateButton/DateButton';
 import TimeButton from '../../components/TimeButton/TimeButton';
 import Button from '../../components/Button/Button';
+import { addDays, format } from 'date-fns';
+
 
 import { useNavigate } from 'react-router-dom';
 
@@ -13,7 +15,6 @@ import { useNavigate } from 'react-router-dom';
 const BookingPage = ({movie, theatres}) => {
 
     const navigate = useNavigate();
-
     console.log(movie);
     // console.log(theatres);
     
@@ -37,9 +38,25 @@ const BookingPage = ({movie, theatres}) => {
         setTimings(location.timings);
     };
 
-    const dates = [{date: '1 May', day: 'Tue'},{date: '2 May', day: 'Wed'},{date: '3 May', day: 'Thu'},{date: '4 May', day: 'Fri'},{date: '5 May', day: 'Sat'}]
+    const generateDateObjects = () => {
+        const today = new Date();
+        const dates = [];
+      
+        for (let i = 0; i < 5; i++) {
+          const currentDate = addDays(today, i);
+          const formattedDate = format(currentDate, 'd MMM');
+          const dayOfWeek = format(currentDate, 'EEE');
+      
+          dates.push({ date: formattedDate, day: dayOfWeek });
+        }
+      
+        return dates;
+      };
+
+    const dates = generateDateObjects();
     const handleDatesClick = (date) => {
         setSelectedDate(date.date);
+        console.log(date);
     };  
 
     const times = ["15:40", "17:20", "20:40", "21:00"]
@@ -54,11 +71,6 @@ const BookingPage = ({movie, theatres}) => {
     }
     const handleProceed = () => {
         // Assuming movieInfo is an object containing movie information
-        const movieInfo = {
-            title: 'Your Movie Title',
-            // ... other movie information ...
-        };
-
         // Check if the user is authenticated
         const isAuthenticated = !!localStorage.getItem('token');
         console.log(isAuthenticated);
@@ -68,7 +80,7 @@ const BookingPage = ({movie, theatres}) => {
         //     pathname: isAuthenticated ? '/seat-booking' : '/login',
         //     state: isAuthenticated ? { movie } : undefined,
         // });
-        navigate(isAuthenticated ? '/seat-booking' : '/login', { state: isAuthenticated ? { movie, selectedLocation, selectedTime } : undefined });
+        navigate(isAuthenticated ? '/seat-booking' : '/login', { state: isAuthenticated ? { movie, selectedLocation, selectedTime, selectedDate } : undefined });
     };
     const redirectPath = !!localStorage.getItem('token') ? '/seat-booking' : '/login';
     return (

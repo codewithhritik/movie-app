@@ -6,6 +6,7 @@ import mongoose from "mongoose"
 import usersRoute from './routes/api/users.js';
 import authRoute from './routes/api/auth.js';
 import moviesRoute from './routes/api/movies.js';
+import bookingRoute from './routes/api/booking.js'
 import Theatre from "./models/Theatre.js";
 import Movies from "./models/Movies.js";
 import User from "./models/User.js";
@@ -33,9 +34,11 @@ const connect = async () => {
 app.use( express.json({extended:false}));
 
 // Define Routes
+app.use('/api/booking', bookingRoute);
 app.use('/api/users', usersRoute);
 app.use('/api/auth', authRoute);
 app.use('/api/movies', moviesRoute);
+
 
 app.get("/", (req, res) => {
     res.send('API running')

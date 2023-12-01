@@ -25,23 +25,7 @@ const ShowTimingSchema = new mongoose.Schema({
         ],
       ],
       required: true,
-    },
-    // seats: [
-    //   {
-    //     user: {
-    //       type: mongoose.Schema.Types.ObjectId,
-    //       ref: 'User',
-    //     },
-    //     status: {
-    //       type: String,
-    //       enum: ['available', 'unavailable'],
-    //       default: 'available',
-    //     },
-    //     seatNumber: {
-    //       type: String,
-    //     },
-    //   },
-    // ],
+    }
   });
 
 

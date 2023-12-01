@@ -44,16 +44,12 @@ const UserSchema = new mongoose.Schema({
             default: Date.now
         }
     }],
-    bookings: [{
-        bookingId: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Booking'
+    bookings: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Booking',
         },
-        date: {
-            type: Date,
-            default: Date.now
-        }
-    }],
+    ],
     // additional fields as needed
     date:{
         type:Date,

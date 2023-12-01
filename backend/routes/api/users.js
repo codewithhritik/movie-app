@@ -78,7 +78,7 @@ async (req,res) => {
                         role: user.role,
                         membership: user.membership,
                         membershipExpiryDate: user.membershipExpiryDate,
-                        rewardPoints: user.rewardsPoints,
+                        rewardsPoints: user.rewardsPoints,
                         pastMovies: user.pastMovies,
                         bookings: user.bookings,
                         date: user.date

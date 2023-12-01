@@ -2,19 +2,23 @@ import React, { useState, useEffect } from 'react';
 import './SeatBookingPage.css'; // Import your CSS file for styling
 import Button from '../../components/Button/Button';
 import convertSeatToString from '../../utility/convertSeatToString'
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { set } from 'mongoose';
 const SeatBookingPage = () => {
 
     const location = useLocation();
 
-    // console.log(location.state);
+    const navigate = useNavigate();
+
+    console.log("State -->",location.state.selectedTime);
     const movie = location.state?.movie;
     const theatre = location.state?.selectedLocation;
-    const seats = location.state?.selectedTime;
-    console.log("Movie --->", movie)
-    console.log("Theatre -->", theatre)
-    console.log("Seats -->", seats)
+    const timing = location.state?.selectedTime
+    const seats = location.state?.selectedTime.seats;
+    const date = location.state?.selectedDate;
+    // console.log("Movie --->", movie)
+    // console.log("Theatre -->", theatre)
+    // console.log("Seats -->", seats)
     // console.log(location.state.selectedLocation)
 
     // console.log(movie.theatres.showTimings);
@@ -30,34 +34,23 @@ const SeatBookingPage = () => {
 const [seatAvailability, setSeatAvailability] = useState([]);
 const [selectedSeats, setSelectedSeats] = useState([]);
 
-// const initialSeats = [
-// [{ status: 'available' },{ status: 'unavailable' },{ status: 'unavailable' },{ status: 'unavailable' },{ status: 'unavailable' },{ status: 'available' },{ status: 'unavailable' },{ status: 'available' },{ status: 'available' },{ status: 'unavailable' },],
-// [{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'unavailable' },{ status: 'available' },{ status: 'unavailable' },{ status: 'available' },{ status: 'available' },{ status: 'unavailable' } ],
-// [{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'unavailable' },{ status: 'available' },{ status: 'unavailable' },{ status: 'available' },{ status: 'available' },{ status: 'unavailable' } ],
-// [{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'unavailable' },{ status: 'unavailable' },{ status: 'available' },{ status: 'unavailable' },{ status: 'available' },{ status: 'available' },{ status: 'unavailable' } ],
-// [{ status: 'available' },{ status: 'unavailable' },{ status: 'unavailable' },{ status: 'available' },{ status: 'unavailable' },{ status: 'available' },{ status: 'unavailable' },{ status: 'available' },{ status: 'available' },{ status: 'unavailable' } ],
-// [{ status: 'available' },{ status: 'unavailable' },{ status: 'unavailable' },{ status: 'available' },{ status: 'unavailable' },{ status: 'available' },{ status: 'unavailable' },{ status: 'available' },{ status: 'available' },{ status: 'available' } ],
-// [{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' } ],
-// [{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' } ],
-// [{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' },{ status: 'available' } ],
-// ]
-
-
+    // console.log(seatAvailability);
     useEffect(() => {
-      setSeatAvailability(seats.seats)
+      setSeatAvailability(seats)
     }, [])
     
-  
-//   // Function to toggle seat availability
-//   const toggleSeat = (rowIndex, seatIndex) => {
-//     setSeatAvailability((seatAvailability) => {
-//       console.log(seatAvailability)
-//       const updatedSeats = [...seatAvailability];
-//       updatedSeats[rowIndex][seatIndex] = !updatedSeats[rowIndex][seatIndex];
-//       return updatedSeats;
-//     });
-//   };
 
+    const handleProceed = () => {
+        const isAuthenticated = !!localStorage.getItem('token');
+        // console.log(isAuthenticated);
+
+        // Redirect to the seat-booking page if authenticated; otherwise, redirect to login
+        // navigate.push({
+        //     pathname: isAuthenticated ? '/seat-booking' : '/login',
+        //     state: isAuthenticated ? { movie } : undefined,
+        // });
+        navigate(isAuthenticated ? '/booking-confirmation' : '/login', { state: isAuthenticated ? { movie, theatre, seats, selectedSeats, date, timing } : undefined });
+    }
     
     // Function to handle seat click
     const handleSeatClick = (rowIndex, seatIndex) => {
@@ -113,12 +106,12 @@ const [selectedSeats, setSelectedSeats] = useState([]);
   return (
     <div className="seat-booking-container">
         <div className='seat-booking-title'>
-            <h2>Select Seat : {movie.title} in {theatre} at {seats.timing}</h2>
+            <h2>Select Seat : {movie.title} in {theatre} at {timing.timing}</h2>
         </div>
       
         {/* <p>Total Available Seats: {totalAvailableSeats}</p> */}
         <div className="seat-grid">
-            {console.log(seatAvailability)}
+            {/* {console.log(seatAvailability)} */}
             {seatAvailability.map((row, rowIndex) => (
             <div key={rowIndex} className="seat-row">
                 {row.map((isAvailable, seatIndex) => (
@@ -165,7 +158,9 @@ const [selectedSeats, setSelectedSeats] = useState([]);
             </div>
             <div className='seat-booking-btns'>
                 <Button text={'Back'} />
-                <Button text={'Proceed to Payment'} />
+                <div onClick={handleProceed}>
+                    <Button text={'Proceed to Payment'} />
+                </div>
             </div>
         </div>
     </div>
