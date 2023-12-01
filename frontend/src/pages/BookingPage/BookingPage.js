@@ -7,9 +7,14 @@ import DateButton from '../../components/DateButton/DateButton';
 import TimeButton from '../../components/TimeButton/TimeButton';
 import Button from '../../components/Button/Button';
 
+import { useNavigate } from 'react-router-dom';
+
 
 const BookingPage = ({movie, theatres}) => {
 
+    const navigate = useNavigate();
+
+    console.log(movie);
     // console.log(theatres);
     
     const [selectedLocation, setSelectedLocation] = useState(null);
@@ -28,7 +33,8 @@ const BookingPage = ({movie, theatres}) => {
     const handleLocationClick = (location) => {
         // console.log(location);
         setSelectedLocation(location.name);
-        setTimings(location.timings)
+        console.log(location.name);
+        setTimings(location.timings);
     };
 
     const dates = [{date: '1 May', day: 'Tue'},{date: '2 May', day: 'Wed'},{date: '3 May', day: 'Thu'},{date: '4 May', day: 'Fri'},{date: '5 May', day: 'Sat'}]
@@ -40,12 +46,30 @@ const BookingPage = ({movie, theatres}) => {
     const handleTimeClick = (time) => {
         // console.log(time);
         setSelectedTime(time)
+        // console.log('TIME -->', time);
     }
 
     if (!movie || !theatres) {
         return <p>Loading...</p>; // or any other loading indicator
     }
+    const handleProceed = () => {
+        // Assuming movieInfo is an object containing movie information
+        const movieInfo = {
+            title: 'Your Movie Title',
+            // ... other movie information ...
+        };
 
+        // Check if the user is authenticated
+        const isAuthenticated = !!localStorage.getItem('token');
+        console.log(isAuthenticated);
+
+        // Redirect to the seat-booking page if authenticated; otherwise, redirect to login
+        // navigate.push({
+        //     pathname: isAuthenticated ? '/seat-booking' : '/login',
+        //     state: isAuthenticated ? { movie } : undefined,
+        // });
+        navigate(isAuthenticated ? '/seat-booking' : '/login', { state: isAuthenticated ? { movie, selectedLocation, selectedTime } : undefined });
+    };
     const redirectPath = !!localStorage.getItem('token') ? '/seat-booking' : '/login';
     return (
     <div className="booking-page"> 
@@ -92,9 +116,10 @@ const BookingPage = ({movie, theatres}) => {
                             )
                         })}
                         {timings && timings.map((time) => {
+                            console.log(time)
                             return (
-                                <div key={time} className="time-box" onClick={() => handleTimeClick(time)}>
-                                    <TimeButton time={time} selected={selectedTime === time} />
+                                <div key={time._id} className="time-box" onClick={() => handleTimeClick(time)}>
+                                    <TimeButton time={time.timing} selected={selectedTime === time} />
                                 </div>
                             )
                         })}
@@ -106,9 +131,9 @@ const BookingPage = ({movie, theatres}) => {
                 <PosterCard movie={movie}/>
             </div>
         </div>
-        <Link to={redirectPath} >
+        <div onClick={handleProceed}>
             <Button text={'Proceed'}/>
-        </Link>
+        </div>
     </div>
   )
 }

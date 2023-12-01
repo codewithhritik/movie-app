@@ -18,7 +18,7 @@ import { setAlert } from '../../actions/alert';
 
 import "./LoginPage.css"
 
-const LoginPage = ({ setAlert, login }) => {
+const LoginPage = ({setAlert, login}) => {
 
 
   const [formData, setFormData] = useState({
@@ -40,6 +40,8 @@ const LoginPage = ({ setAlert, login }) => {
     try {
       // Call login action with email and password
       await login(email, password);
+      
+
       navigate('/');
       // Redirect to '/booking' after successful login
       //navigate('/booking'); // Redirect to BookingPage after successful login, not working YET

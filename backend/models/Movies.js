@@ -1,20 +1,10 @@
-import mongoose from "mongoose";
+import { MongoMissingCredentialsError } from "mongodb";
+import * as mongoose from "mongoose";
+// import Theatre from "./Theatre";
 // import TheatreSchema from "./Theatre";
+// import TheatreSchema from './Theatre.js'
 
-const TheatreSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true
-    },
-    location: {
-        type: String,
-        required: true
-    },
-    timings: [{
-        type: String, // Assuming timings are represented as strings for simplicity
-        required: true
-    }]
-});
+
 
 const MovieSchema = new mongoose.Schema({
     title: {
@@ -37,7 +27,15 @@ const MovieSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    theatres: [TheatreSchema]
+    theatres: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Theatre", // Reference the Theatre model
+    }]
 })
+
+
+// console.log("This is MovieSchema--", MovieSchema);
+// const Movies = mongoose.model("Movies", MovieSchema)
+// console.log("This is model- ", Movies)
 
 export default mongoose.model("Movies", MovieSchema);

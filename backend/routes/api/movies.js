@@ -50,10 +50,15 @@ router.get("/:id", async (req, res) => {
 // GET ALL
 router.get("/", async (req, res) => {
     try {
-        const movies = await Movies.find();
-        console.log(movies)
+        const movies = await Movies.find().populate({
+            path: 'theatres',
+            populate: {
+              path: 'timings',
+            },
+        });
         res.status(200).json(movies)
     } catch(err) {
+        console.log(err);
         res.status(500).json(err)
     }
 })
