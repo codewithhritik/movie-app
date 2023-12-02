@@ -22,6 +22,7 @@ import setAuthToken from './utility/setAuthToken.js';
 import { Provider } from 'react-redux';
 import store from './store.js'
 import GetPremiumPage from './pages/GetPremiumPage/GetPremiumPage';
+import AdminAnalyticsPage from './pages/AdminAnalyticsPage/AdminAnalyticsPage';
 
 if (localStorage.token){
   setAuthToken(localStorage.token);
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
   {
     path: "/admin",
     element: <AdminPage />
+  },
+  {
+    path: "/admin/analytics",
+    element: <AdminAnalyticsPage />
   },
   {
     path: "/payment-success",

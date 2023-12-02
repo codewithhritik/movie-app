@@ -1,11 +1,13 @@
-import Theatre from "./Theatre";
-import Movies from "./Movies";
-import User from "./User";
+import mongoose from "mongoose";
+import Theatre from "../models/Theatre.js";
+import Movies from "../models/Movies.js";
+import User from "../models/User.js";
+import ShowTiming from "../models/ShowTiming.js";
 
 const BookingSchema = new mongoose.Schema({
     user: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
+      ref: 'user',
       required: true,
     },
     movie: {
@@ -18,21 +20,22 @@ const BookingSchema = new mongoose.Schema({
       ref: 'Theatre',
       required: true,
     },
-    seat: {
-      type: String,
+    timing: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'ShowTiming',
       required: true,
     },
+    seats: [{
+      type: String,
+      required: true,
+    }],
     date: {
       type: Date,
-      default: Date.now,
     },
-    showTimings: {
-        
+    ticketPrice: {
+      type: Number
     }
-
   });
-  
+
 //   const Booking = mongoose.model('Booking', BookingSchema);
 export default mongoose.model('Booking', BookingSchema);
-  
-

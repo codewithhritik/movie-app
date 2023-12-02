@@ -5,7 +5,9 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import MovieModal from '../MovieModal/MovieModal';
-import { API_BASE_URL } from '../../utility/apiConfig.js'
+import { API_BASE_URL } from '../../utility/apiConfig.js';
+import Button from "@mui/material/Button";
+import { useNavigate } from 'react-router-dom';
 
 function AdminMovieTable({ movies }) {
     const [modalOpen, setModalOpen] = useState(false);
@@ -84,8 +86,10 @@ function AdminMovieTable({ movies }) {
         .then(resp => resp.json())
         .then(data => {
             if (!isUpdating) {
+                console.log("MOVIE CREATED", data)
                 setAllMovies(prevMovies => [...prevMovies, data]);
             } else {
+                console.log('FROM DB UPDATE', data)
                 setAllMovies(prevMovies => prevMovies.map(movie => movie._id === data._id ? data : movie));
             }
             handleCloseModal();
@@ -94,8 +98,23 @@ function AdminMovieTable({ movies }) {
             console.error('Error: ', error);
         });
     };
-    
-    
+
+    const formatTimings = (timings) => {
+        // Check if timings is defined and is an array before calling map
+        if (Array.isArray(timings)) {
+          return timings.map(t => t.timing).join(", ");
+        }
+        // If timings is not an array, return an empty string or some default value
+        return "";
+    };
+
+    const navigate = useNavigate();
+
+    const goToAnalyticsDashboard = () => {
+        navigate('/admin/analytics');
+    };
+
+
     return (
         <div>
         
@@ -105,6 +124,15 @@ function AdminMovieTable({ movies }) {
                 <Typography variant="h6" color="black" noWrap>
                     Movies
                 </Typography>
+                <Button
+                    color="primary"
+                    variant="outlined"
+                    size="small"
+                    onClick={goToAnalyticsDashboard}
+                    style={{ marginLeft: 'auto', marginTop: '2px', marginLeft: '20px' }} // Adjust spacing as needed
+                >
+                        Analytics Dashboard
+                </Button>
                 <div style={{ flexGrow: 1 }} /> {/* This pushes the icon to the right */}
                 <IconButton color="black" onClick={handleAddClick}>
                     <AddIcon />
@@ -118,22 +146,34 @@ function AdminMovieTable({ movies }) {
                         <TableCell>Cover</TableCell>
                         <TableCell>Title</TableCell>
                         <TableCell>Description</TableCell>
+                        <TableCell>Theaters and Timings</TableCell>
                         <TableCell>Action</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {
-                        allMovies.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((movie, index) => (
-                            <TableRow
-                                key={movie._id || index}
+                        allMovies
+                        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                        .map((movie, index) => {
+                            const correctIndex = page * rowsPerPage + index + 1;
+                            return (
+                                <TableRow
+                                key={movie._id || correctIndex}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
-                                <TableCell>{index + 1}</TableCell>
+                                <TableCell>{correctIndex}</TableCell>
                                 <TableCell>
                                     <img src={movie.picture} alt={movie.title} className='movie-cover'></img>
                                 </TableCell>
                                 <TableCell style={{ width: '15%' }}>{movie.title}</TableCell>
                                 <TableCell className="description-column">{movie.description}</TableCell>
+                                <TableCell>
+                                    {movie.theatres.map(theatre => (
+                                        <div key={theatre._id}>
+                                            {theatre.name} - {theatre.timings ? formatTimings(theatre.timings) : 'No timings available'}
+                                        </div>
+                                    ))}
+                                </TableCell>
                                 <TableCell>
                                     <IconButton onClick={() => handleEditClick(movie)}>
                                         <EditIcon />
@@ -143,8 +183,9 @@ function AdminMovieTable({ movies }) {
                                     </IconButton>
                                 </TableCell>
                             </TableRow>
-                        ))
-                    }
+                            );
+                            
+                        })}
                 </TableBody>
             </Table>
             <TablePagination

@@ -6,9 +6,7 @@ import mongoose from "mongoose"
 import usersRoute from './routes/api/users.js';
 import authRoute from './routes/api/auth.js';
 import moviesRoute from './routes/api/movies.js';
-import Theatre from "./models/Theatre.js";
-import Movies from "./models/Movies.js";
-import User from "./models/User.js";
+import getBookingRoute from './routes/api/getBooking.js'
 
 dotenv.config()
 
@@ -33,6 +31,7 @@ const connect = async () => {
 app.use( express.json({extended:false}));
 
 // Define Routes
+app.use('/api/getbooking', getBookingRoute);
 app.use('/api/users', usersRoute);
 app.use('/api/auth', authRoute);
 app.use('/api/movies', moviesRoute);
