@@ -18,8 +18,19 @@ const convertSeatToString = (seat) => {
 
 router.post('/', async (req, res) => {
   try {
-    const { user, movie, theatre, seats, ticketPrice, date, timing } = req.body;
+    const { user, movie, theatre, seats, ticketPrice, date, timing, rewardPoints } = req.body;
     
+
+    const currentUser = await User.findById(user);
+    console.log("CURRENT USER -->", currentUser)
+    if (!currentUser) {
+        return res.status(404).json({ error: 'User not found' });
+    }
+    currentUser.rewardsPoints =  rewardPoints + ticketPrice;
+    await currentUser.save();
+
+
+
     console.log("Body ---->",req.body);
    
     const booking = new Booking({ user, movie, theatre, ticketPrice, date, timing, seats: [] });

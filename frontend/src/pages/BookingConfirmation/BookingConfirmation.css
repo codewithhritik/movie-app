@@ -88,3 +88,21 @@
     /* width: 100%; */
 }
 
+.discount {
+    /* display: flex;
+    flex-direction: column; */
+    /* font-size: small; */
+    gap: 5px;
+    /* border: 1px solid white; */
+    padding: 0;
+}
+
+.discount-6pm,
+.discount-tuesday{
+    display: flex;
+    /* font-size: medium; */
+    /* border: 1px solid white; */
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px 0;
+}

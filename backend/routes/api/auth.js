@@ -9,6 +9,7 @@ import User from '../../models/User.js';
 router.get('/', auth, async (req,res)=> {
     try{
         const user = await User.findById(req.user.id).select('-password').populate('bookings')
+        console.log("USERRRRR ------->", user);
         // Define an array of paths to populate
         // const pathsToPopulate = user.bookings.map((booking, index) => `bookings.${index}.theatre`);
         const pathsToPopulate = [];

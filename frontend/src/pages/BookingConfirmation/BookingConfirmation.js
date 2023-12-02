@@ -6,6 +6,9 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import convertSeatToString from '../../utility/convertSeatToString';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
 import Button from '../../components/Button/Button';
+// import {parse, isTuesday} from 'date-fns';
+import { parse, isTuesday, isBefore, setHours, setMinutes, format } from 'date-fns';
+
 
 const BookingConfirmation = () => {
 
@@ -23,10 +26,15 @@ const BookingConfirmation = () => {
     // console.log(theatre);
     const discount_before_6pm = theatre.discount_before_6pm;
     const discount_on_Tuesdays = theatre.discount_on_Tuesdays;
+    // console.log(discount_before_6pm);
+    // console.log(discount_on_Tuesdays);
     const seats = location.state?.seats;
     const selectedSeats = location.state?.selectedSeats;
     const date = location.state?.date;
-    console.log(date);
+    const parsedDate = parse(date, 'd MMM', new Date());
+    const showTiming = parse(timing.timing, 'HH:mm', new Date());
+    const sixPM = setHours(setMinutes(new Date(), 0), 18);
+    // console.log(date);
     
     
     
@@ -56,7 +64,8 @@ const BookingConfirmation = () => {
             seats: selectedSeats,
             ticketPrice: ticketPrice,
             date: date,
-            timing: timing
+            timing: timing,
+            rewardPoints: remainingRewardPoints
         }).then(response => {
             console.log('Booking response:', response.data);
             navigate('/payment-success')
@@ -79,14 +88,38 @@ const BookingConfirmation = () => {
     const [total, setTotal] = useState(0);
     const [remainingRewardPoints, setRemainingRewardPoints] = useState(0);
 
+    
+    const calculateDiscount = () => {
+        let totalDiscount = 0
+        const parsedDate = parse(date, 'd MMM', new Date());
+        const showTiming = parse(timing.timing, 'HH:mm', new Date());
+        const sixPM = setHours(setMinutes(new Date(), 0), 18);
+
+        if (isTuesday(parsedDate) && theatre[0].discount_on_Tuesdays > 0) {
+            totalDiscount = totalDiscount + theatre[0].discount_on_Tuesdays
+        }
+        
+        if (isBefore(showTiming, sixPM) && theatre[0].discount_before_6pm > 0 ) {
+        // Apply discount logic here
+            totalDiscount = totalDiscount + theatre[0].discount_before_6pm
+        }
+
+        console.log(totalDiscount)
+        return totalDiscount 
+        // Optionally, you can format the time for display purposes
+        // const formattedTime = format(showTiming, 'hh:mm a');
+        // console.log('Formatted Show Timing:', formattedTime);
+    }
     const updateTotalAndPoints = () => {
         const onlineServiceFee = userData.membership === 'free' ? (1.50 * selectedSeats.length) : 0;
         const baseTotal = 15.00 * selectedSeats.length + onlineServiceFee;
         const rewardPointsUsed = useRewardPoints ? Math.min(baseTotal, userData.rewardsPoints) : 0;
         const newTotal = Math.max(baseTotal - rewardPointsUsed, 0);
+        const discount = (calculateDiscount() * newTotal) / 100;
+        const evenNewerTotal = newTotal - discount;
         const newRemainingPoints = useRewardPoints ? Math.max(userData.rewardsPoints - rewardPointsUsed, 0) : userData.rewardsPoints;
         setRemainingRewardPoints(newRemainingPoints);
-        setTotal(newTotal);
+        setTotal(evenNewerTotal);
         // console.log(newRemainingPoints);
         
       };
@@ -147,7 +180,7 @@ const BookingConfirmation = () => {
                     REGULAR SEAT
                 </div>
                 <div>
-                    $15.00 x {selectedSeats.length}
+                    $ 15.00 x {selectedSeats.length}
                 </div>
             </div>
             <div className='online-service-fee'>
@@ -155,13 +188,27 @@ const BookingConfirmation = () => {
                     Online Service Fee
                 </div>
                 <div>
-                    {userData.membership === 'free' ? `$1.50 x ${selectedSeats.length}` : `0`}
+                    {userData.membership === 'free' ? `$ 1.50 x ${selectedSeats.length}` : `0`}
+                </div>
+            </div>
+            <div className='discount'>
+                <div className='discount-6pm'>
+                    Discount for shows before 6pm
+                    <div>
+                        {isBefore(showTiming, sixPM) ? theatre[0].discount_before_6pm : 0} %
+                    </div>
+                </div>
+                <div className='discount-tuesday'>
+                    Discount for shows on Tuesdays 
+                    <div>
+                        {isTuesday(parsedDate) ? theatre[0].discount_on_Tuesdays: 0} %
+                    </div>
                 </div>
             </div>
             <div className='total-payment'>
                 <div className='total'>Total Payment</div>
                 <div>
-                    {`$${total}`}
+                    {`$ ${total}`}
                 </div>
             </div>
             <div className='reward-points'>
