@@ -52,8 +52,8 @@ const LandingPage = () => {
     getMovies()
       .then((data) => {
         // console.log(data);
-        console.log(data);
-        setMovies(data.slice(0,8));
+        console.log("Movie data ---> ",data);
+        setMovies(data);
         setSelectedMovie(data[0]);
         setSelectedMovieTheatres(data[0].theatres)
       })

@@ -19,7 +19,7 @@ const TheatreSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "ShowTiming", // Reference the ShowTiming model
   }],
-  showTimings: [ShowTiming.schema],
+  // showTimings: [ShowTiming.schema],
   seatingCapacity: {
     type: Number,
     default: 90,

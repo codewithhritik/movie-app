@@ -20,21 +20,22 @@ router.post('/', async (req, res) => {
   try {
     const { user, movie, theatre, seats, ticketPrice, date, timing } = req.body;
     
-    // console.log("Body ---->",req.body);
+    console.log("Body ---->",req.body);
    
     const booking = new Booking({ user, movie, theatre, ticketPrice, date, timing, seats: [] });
 
     // console.log("Booking------------------------------------",booking);
 
     const movieObj = await Movies.findById(movie);
-    const theatreObj = await Theatre.findById(theatre);
-    console.log("THEATER OBJECT --->",theatreObj.timings[0]._id);
-    const showTimingObj = await ShowTiming.findById(theatreObj.timings[0]); // Adjust this based on your actual data structure
-    
+    const theatreObj_id = movieObj.theatres.find(showTheatre => showTheatre._id.equals(theatre))
+    const theatreObj = await Theatre.findById(theatreObj_id);
+    console.log("THEATER OBJECT --->",theatreObj); // Adjust this based on your actual data structure
+    const showTimingObj_id = theatreObj.timings.find(showTiming => showTiming._id.equals(timing._id));
+    const showTimingObj = await ShowTiming.findById(showTimingObj_id);
 
     // console.log("MOVIE OBJECT --->",movieObj);
     // console.log("THEATER OBJECT --->",theatreObj);
-    // console.log("SHOWTIMING OBJECT --->",showTimingObj);
+    console.log("SHOWTIMING OBJECT --->",showTimingObj);
     // console.log("Seats -->", seats);
 
     // const bookings = {};
