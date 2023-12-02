@@ -7,9 +7,11 @@ import store from '../../store.js'
 import { loadUser } from '../../actions/auth';
 
 const BookingCard = ({data}) => {
-  console.log(data);
+  // console.log(data);
   const currentDate = new Date();
   const propDate = new Date(data.date);
+  const formattedDate = data?.date ? format(new Date(data.date), 'dd MMM') : '';
+
   // console.log(currentDate , propDate)
   
 
@@ -65,7 +67,8 @@ const BookingCard = ({data}) => {
     <div className='bookingcard'>
       <div className='bookingcard-date'>
         <p>Date - </p>
-        {format(new Date(data.date), 'dd MMM')}
+        {formattedDate}
+        {/* {format(new Date(data ? data.date : '2023-12-08T08:00:00.000Z'), 'dd MMM')} */}
       </div>
       <div className='bookingcard-movie'>
         <p>Movie Title -</p>
@@ -74,9 +77,9 @@ const BookingCard = ({data}) => {
       <div className='bookingcard-tickets'>
         <p>Ticket (s) -</p>
         <div className='ticket-seats'>
-          {data.seats.map((seat) => {
+          {data && data.seats && data.seats.map((seat, idx) => {
             return (
-              <div>
+              <div key={idx}>
                 {seat}
               </div>
             )

@@ -68,9 +68,11 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+
   useEffect(()=>{
     store.dispatch(loadUser());
   },[]);
+  
   return (
     <Provider store={store}> {/* Wrap your App with the Provider component */}
       <div className="main">

@@ -5,11 +5,15 @@ import { Link } from 'react-router-dom';
 import { logout } from '../../actions/auth'; // Import the logout action
 import { connect } from 'react-redux'; // Import connect
 import PropTypes from 'prop-types';
-
+import store from '../../store.js';
+import { useNavigate } from 'react-router-dom';
 
 import CinemasLogo from '../../assets/images/Logo/CinemasLogo.png'
 
 const Navbar = () => {
+
+  const navigate = useNavigate();
+
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
@@ -18,7 +22,8 @@ const Navbar = () => {
   
   const handleLogout = () => {
     // Call the logout action when logout is clicked
-    logout();
+    store.dispatch(logout());
+    navigate('/login');
   };
 
   return (
