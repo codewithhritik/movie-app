@@ -58,7 +58,7 @@ const LoginPage = ({setAlert, login}) => {
       </div>
       
       <div className='login-text'>
-        <Description />
+        {/* <Description /> */}
         <h2>{'Log In'}</h2>
       </div>
       <div className='login-form-container'>

@@ -39,6 +39,9 @@ const [selectedSeats, setSelectedSeats] = useState([]);
       setSeatAvailability(seats)
     }, [])
     
+    const handleBack = () => {
+        navigate('/')
+    }
 
     const handleProceed = () => {
         const isAuthenticated = !!localStorage.getItem('token');
@@ -49,7 +52,13 @@ const [selectedSeats, setSelectedSeats] = useState([]);
         //     pathname: isAuthenticated ? '/seat-booking' : '/login',
         //     state: isAuthenticated ? { movie } : undefined,
         // });
-        navigate(isAuthenticated ? '/booking-confirmation' : '/login', { state: isAuthenticated ? { movie, theatre, seats, selectedSeats, date, timing } : undefined });
+        if (selectedSeats.length === 0) {
+            // If any field is not selected, show an alert
+            alert('Please choose your seats');
+        } else {
+            navigate(isAuthenticated ? '/booking-confirmation' : '/login', { state: isAuthenticated ? { movie, theatre, seats, selectedSeats, date, timing } : undefined });
+        }
+        
     }
     
     // Function to handle seat click
@@ -157,7 +166,9 @@ const [selectedSeats, setSelectedSeats] = useState([]);
                 </div>
             </div>
             <div className='seat-booking-btns'>
-                <Button text={'Back'} />
+                <div onClick={handleBack}>
+                    <Button text={'Back'} />
+                </div>
                 <div onClick={handleProceed}>
                     <Button text={'Proceed to Payment'} />
                 </div>

@@ -30,6 +30,10 @@
 
 .date-boxes{
     display: flex;
+    /* border: 1px solid white; */
+    margin-right: 20px;
+    /* gap: 2px; */
+    /* flex-direction: row; */
     /* justify-content: space-evenly; */
     /* align-items: center; */
 }

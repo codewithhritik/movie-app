@@ -80,7 +80,14 @@ const BookingPage = ({movie, theatres}) => {
         //     pathname: isAuthenticated ? '/seat-booking' : '/login',
         //     state: isAuthenticated ? { movie } : undefined,
         // });
-        navigate(isAuthenticated ? '/seat-booking' : '/login', { state: isAuthenticated ? { movie, selectedLocation, selectedTime, selectedDate } : undefined });
+        // Check if any of the fields is not selected
+        if (!movie || !selectedLocation || !selectedTime || !selectedDate) {
+            // If any field is not selected, show an alert
+            alert('Please select all appropriate fields');
+        } else {
+            navigate(isAuthenticated ? '/seat-booking' : '/login', { state: isAuthenticated ? { movie, selectedLocation, selectedTime, selectedDate } : undefined });
+        }
+
     };
     const redirectPath = !!localStorage.getItem('token') ? '/seat-booking' : '/login';
     return (

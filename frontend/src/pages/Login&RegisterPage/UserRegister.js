@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { setAlert } from '../../actions/alert'; 
 import { register } from '../../actions/auth';
 import PropTypes from 'prop-types'
+import { useNavigate } from 'react-router-dom';
 
 
 import axios from 'axios';
@@ -18,6 +19,7 @@ import './UserRegister.css'
 
 const Register = ({setAlert, register}) =>{
 
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     name:'',
@@ -48,6 +50,7 @@ const Register = ({setAlert, register}) =>{
 
       try {
         await register(newUser); 
+        navigate('/');
         // console.log("After try catch",userData)
       } catch (err) {
         console.error('Error:', err);
@@ -65,7 +68,7 @@ const Register = ({setAlert, register}) =>{
 
       </div>
       <div className='register-description'>
-        <Description /> {/* Add the Description component here */}
+        {/* <Description /> Add the Description component here */}
         <h2>{'Sign Up'}</h2>
       </div>
       <div className='register-form-container'>

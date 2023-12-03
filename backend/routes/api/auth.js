@@ -9,9 +9,6 @@ import User from '../../models/User.js';
 router.get('/', auth, async (req,res)=> {
     try{
         const user = await User.findById(req.user.id).select('-password').populate('bookings')
-        console.log("USERRRRR ------->", user);
-        // Define an array of paths to populate
-        // const pathsToPopulate = user.bookings.map((booking, index) => `bookings.${index}.theatre`);
         const pathsToPopulate = [];
         for (let index = 0; index < user.bookings.length; index++) {
             const moviePath = `bookings.${index}.movie`;
@@ -21,28 +18,8 @@ router.get('/', auth, async (req,res)=> {
             pathsToPopulate.push(theatrePath);
             pathsToPopulate.push(timingPath);
         }
-        // const pathsToPopulate = user.bookings.map((booking, index) => [
-        //     `bookings.${index}.movie`,
-        //     `bookings.${index}.theatre`,
-        //     `bookings.${index}.timing`,
-        // ]);
-
-        // const flattenedPaths = [].concat(...pathsToPopulate);
         console.log(pathsToPopulate);
-        // for (let i = 0; i < user.bookings.length; i++) {
-        //     await user.bookings.populate(`movie`);
-        //     await user.bookings.populate(`theatre`);
-        //     await user.bookings.populate(`timing`);
-        // }
-        // Use populate with the array of paths
         await user.populate(pathsToPopulate);
-        // await user.populate('booking');
-
-        // for (let i = 0; i < user.bookings.length; i++) {
-        //     await user.populate({ path: `bookings.${i}.theatre bookings.${i}.timing bookings.${i}.movie` }).execPopulate();
-        // }
-
-        // await doc.populate(['path1', 'path2']);
           
 
         console.log("This is user", user);

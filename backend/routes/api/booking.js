@@ -5,6 +5,7 @@ import Booking from '../../models/Booking.js'
 import Movies  from '../../models/Movies.js'
 import Theatre from '../../models/Theatre.js'
 import ShowTiming from '../../models/ShowTiming.js';
+import {parse, format} from 'date-fns'
 
 
 const router = express.Router();
@@ -22,7 +23,7 @@ router.post('/', async (req, res) => {
     
 
     const currentUser = await User.findById(user);
-    console.log("CURRENT USER -->", currentUser)
+    // console.log("CURRENT USER -->", currentUser)
     if (!currentUser) {
         return res.status(404).json({ error: 'User not found' });
     }
@@ -30,8 +31,23 @@ router.post('/', async (req, res) => {
     await currentUser.save();
 
 
-
-    console.log("Body ---->",req.body);
+    const convertToFormattedDate = (originalDate, defaultYear) => {
+        // Parse the original date
+        const parsedDate = parse(originalDate, 'd MMM', new Date());
+        
+        console.log("PARSEDDD DATE -->", parsedDate);
+        // Set the year (use a default year if not provided)
+        if (!parsedDate.getFullYear() && defaultYear) {
+          parsedDate.setFullYear(defaultYear);
+        }
+      
+        // Format the date as "dd MM yyyy"
+        const formattedDate = format(parsedDate, 'dd MMM yyyy');
+        return formattedDate;
+      };
+    
+    const newDate = convertToFormattedDate(req.body.date, 2023)
+    console.log("DATEEEEE---->",req.body.date);
    
     const booking = new Booking({ user, movie, theatre, ticketPrice, date, timing, seats: [] });
 
@@ -46,7 +62,7 @@ router.post('/', async (req, res) => {
 
     // console.log("MOVIE OBJECT --->",movieObj);
     // console.log("THEATER OBJECT --->",theatreObj);
-    console.log("SHOWTIMING OBJECT --->",showTimingObj);
+    // console.log("SHOWTIMING OBJECT --->",showTimingObj);
     // console.log("Seats -->", seats);
 
     // const bookings = {};

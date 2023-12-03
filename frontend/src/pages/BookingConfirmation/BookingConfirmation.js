@@ -34,7 +34,7 @@ const BookingConfirmation = () => {
     const parsedDate = parse(date, 'd MMM', new Date());
     const showTiming = parse(timing.timing, 'HH:mm', new Date());
     const sixPM = setHours(setMinutes(new Date(), 0), 18);
-    // console.log(date);
+    console.log(date);
     
     
     
@@ -57,6 +57,7 @@ const BookingConfirmation = () => {
         console.log("TicketPrice", ticketPrice);
         console.log(selectedSeats);
 
+        // const parsedDate = parse(date, 'd MMM', new Date());
         axios.post('http://localhost:8000/api/booking', {
             user: user,
             movie: currentMovie,

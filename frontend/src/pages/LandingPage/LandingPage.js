@@ -81,11 +81,11 @@ const LandingPage = () => {
             })}
         </div>
       </div>
-      <Link to={redirectPath}>
+      {/* <Link to={redirectPath}>
         <div className='proceed-btn'>
           <Button text={'Proceed'}/>
         </div>
-      </Link>
+      </Link> */}
       
       <BookingPage movie={selectedMovie} theatres={selectedMovieTheatres} />
       <div className='title-2'>
