@@ -7,7 +7,7 @@ import ShowTiming from "../models/ShowTiming.js";
 const BookingSchema = new mongoose.Schema({
     user: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
+      ref: 'user',
       required: true,
     },
     movie: {
@@ -36,8 +36,6 @@ const BookingSchema = new mongoose.Schema({
       type: Number
     }
   });
-  
+
 //   const Booking = mongoose.model('Booking', BookingSchema);
 export default mongoose.model('Booking', BookingSchema);
-  
-

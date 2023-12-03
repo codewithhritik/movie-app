@@ -4,6 +4,7 @@ import {
     USER_LOADED,
     AUTH_ERROR,
     LOGOUT,
+    PREMIUM_USER_SUCCESS
 } from '../actions/types';
   
   const initialState = {
@@ -56,6 +57,15 @@ import {
           loading: false,
           user: null,
         };
+        
+      case PREMIUM_USER_SUCCESS:
+        console.log(payload);
+        return {
+          ...state,
+          isAuthenticated: true,
+          loading: false,
+          user: payload,
+        }
   
       default:
         return state;

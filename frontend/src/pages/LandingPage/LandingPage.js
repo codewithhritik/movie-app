@@ -103,15 +103,18 @@ const LandingPage = () => {
             })}
         </div>
       </div>
-      <div className='title-2'>
-        <h1>Membership Options</h1>
-      </div>
 
-      
-      <div className='membership'>
-        <MembershipBox text="Regular"/>
-        <MembershipBox text="Premium"/>
-      </div>
+      { userData && userData.membership === 'free' && (
+        <div>
+          <div className='title-2'>
+            <h1>Membership Options</h1>
+          </div>
+          <div className='membership'>
+            {/* <MembershipBox text="Regular"/> */}
+            <MembershipBox text="Premium"/>
+          </div>
+        </div>
+      )}
 
     </div>
   );

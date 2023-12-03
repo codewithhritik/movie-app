@@ -93,4 +93,28 @@ async (req,res) => {
     }
 })
 
+// Premium Member - Buy Subscription
+router.put("/get-premium/:id", async (req, res) => {
+    const userId = req.params.id
+    console.log(userId);
+
+    // Calculate the expiration date, one year from now
+    const oneYearFromNow = new Date();
+    oneYearFromNow.setFullYear(oneYearFromNow.getFullYear() + 1);
+
+    try {
+        // Update the user's membership status and expiration date
+        const updatedUser = await User.findByIdAndUpdate(userId, {
+          membership: 'premium',
+          membershipExpiryDate: oneYearFromNow
+        }, { new: true });
+    
+        // Respond with success message
+        res.status(200).json(updatedUser);
+    } catch (error) {
+        // Handle errors, such as if the user is not found
+        res.status(500).json({ message: 'An error occurred while upgrading membership', error: error });
+    }
+})
+
 export default router;

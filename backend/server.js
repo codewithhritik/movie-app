@@ -8,9 +8,7 @@ import authRoute from './routes/api/auth.js';
 import moviesRoute from './routes/api/movies.js';
 import bookingRoute from './routes/api/booking.js'
 import cancelRoute from './routes/api/cancel.js'
-import Theatre from "./models/Theatre.js";
-import Movies from "./models/Movies.js";
-import User from "./models/User.js";
+import getBookingRoute from './routes/api/getBooking.js'
 
 dotenv.config()
 
@@ -37,6 +35,7 @@ app.use( express.json({extended:false}));
 // Define Routes
 
 app.use('/api/booking', bookingRoute);
+app.use('/api/getbooking', getBookingRoute);
 app.use('/api/users', usersRoute);
 app.use('/api/auth', authRoute);
 app.use('/api/movies', moviesRoute);

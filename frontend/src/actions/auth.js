@@ -102,15 +102,14 @@ export const login = (email, password) => async (dispatch) => {
 
     const res = await api.post('/auth', body, config);
 
-    console.log(res);
     const { token } = res.data; // Assuming token is returned in res.data
 
-    // Set token in localStorage
+    // Set the received token into localStorage
     localStorage.setItem('token', token);
 
     // Dispatch action for successful login
     dispatch({ type: USER_LOGIN_SUCCESS, payload: res.data });
-    // dispatch(setAlert('Log in successfully!', 'success'));
+    dispatch(setAlert('Log in successfully!', 'success'));
 
   } catch (err) {
     if (err.response && err.response.data && err.response.data.message) {
@@ -134,7 +133,7 @@ export const login = (email, password) => async (dispatch) => {
 };
 
 // Logout User
-export const logout = () => async (dispatch) => {
+export const logout = () => (dispatch) => {
   try {
     console.log('PRESSED LOGOUTT')
     // Clear token from local storage
@@ -151,8 +150,6 @@ export const logout = () => async (dispatch) => {
   } catch (err) {
     console.error('Logout Error:', err);
     // Dispatch AUTH_ERROR in case of logout failure
-    dispatch({ type: AUTH_ERROR });
-    // Display logout failure message
     dispatch(setAlert('Logout Failed', 'danger'));
   }
 };
