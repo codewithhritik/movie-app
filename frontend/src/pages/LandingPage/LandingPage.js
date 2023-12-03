@@ -9,9 +9,18 @@ import BookingPage from '../BookingPage/BookingPage';
 import SeatBookingPage from '../SeatBookingPage/SeatBookingPage';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
+import { useNavigate } from 'react-router-dom';
 
 const LandingPage = () => {
-  
+
+  const userData = useSelector((state) => state.auth.user);
+  console.log(userData);
+
+  const navigate = useNavigate()
+
+  if (userData?.role === 'employee'){
+    navigate('/admin')
+  }
   
   const [movies, setMovies] = useState([]);
 
@@ -20,8 +29,13 @@ const LandingPage = () => {
   
   const bookingPageRef = useRef();
 
-  const userData = useSelector((state) => state.auth.user);
-  console.log(userData);
+  // const userData = useSelector((state) => state.auth.user);
+  // console.log(userData);
+  
+  // useEffect(() => {
+    
+  // }, [])
+  
 
 
   const handlePosterCardClick = (movie) => {

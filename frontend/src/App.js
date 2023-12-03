@@ -18,6 +18,8 @@ import PaymentSuccess from './pages/PaymentSuccess/PaymentSuccess'
 import ProfilePage from './pages/ProfilePage/ProfilePage';
 import { loadUser } from './actions/auth.js';
 import setAuthToken from './utility/setAuthToken.js';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux/es/hooks/useSelector';
 
 //Redux
 import { Provider } from 'react-redux';
@@ -79,8 +81,12 @@ const router = createBrowserRouter([
 
 function App() {
 
+  // const userData = useSelector((state) => state.auth.user);
+  // console.log(userData);
+
   useEffect(()=>{
     store.dispatch(loadUser());
+
   },[]);
   
   return (

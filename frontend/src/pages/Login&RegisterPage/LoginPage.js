@@ -14,11 +14,16 @@ import { loadUser} from '../../actions/auth'
 import { login } from '../../actions/auth';
 import { setAlert } from '../../actions/alert'; 
 
+// import { useSelector } from 'react-redux/es/hooks/useSelector';
+
+
 // import { useHistory } from 'react-router-dom';
 
 import "./LoginPage.css"
 
 const LoginPage = ({setAlert, login}) => {
+
+  
 
 
   const [formData, setFormData] = useState({
@@ -41,8 +46,11 @@ const LoginPage = ({setAlert, login}) => {
       // Call login action with email and password
       await login(email, password);
       
+      
 
       navigate('/');
+
+      
       // Redirect to '/booking' after successful login
       //navigate('/booking'); // Redirect to BookingPage after successful login, not working YET
     } catch (err) {
