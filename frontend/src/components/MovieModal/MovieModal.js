@@ -115,6 +115,7 @@ function MovieModal({ open, movie, onClose, onSave }) {
           fullWidth
           value={form.title}
           onChange={handleChange}
+          required
         />
         <TextField
           margin="dense"
@@ -124,6 +125,7 @@ function MovieModal({ open, movie, onClose, onSave }) {
           fullWidth
           value={form.picture}
           onChange={handleChange}
+          required
         />
         <TextField
           margin="dense"
@@ -135,6 +137,7 @@ function MovieModal({ open, movie, onClose, onSave }) {
           rows={4}
           value={form.description}
           onChange={handleChange}
+          required
         />
         <TextField
           margin="dense"
@@ -147,6 +150,7 @@ function MovieModal({ open, movie, onClose, onSave }) {
             shrink: true,
           }}
           onChange={handleChange}
+          required
         />
         <TextField
           margin="dense"
@@ -156,6 +160,7 @@ function MovieModal({ open, movie, onClose, onSave }) {
           fullWidth
           value={form.duration}
           onChange={handleChange}
+          required
         />
         {/* Theatres section */}
         {form.theatres.map((theatre, index) => (
@@ -168,6 +173,7 @@ function MovieModal({ open, movie, onClose, onSave }) {
               fullWidth
               value={theatre.name}
               onChange={(e) => handleTheatreChange(index, e)}
+              required
             />
             <TextField
               margin="dense"
@@ -177,6 +183,7 @@ function MovieModal({ open, movie, onClose, onSave }) {
               fullWidth
               value={theatre.location}
               onChange={(e) => handleTheatreChange(index, e)}
+              required
             />
             {movie ? '' : <TextField
               margin="dense"
