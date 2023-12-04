@@ -6,6 +6,7 @@ import mongoose from "mongoose"
 import usersRoute from './routes/api/users.js';
 import authRoute from './routes/api/auth.js';
 import moviesRoute from './routes/api/movies.js';
+import upcomingMoviesRouter from './routes/api/upcoming-movies.js'
 import bookingRoute from './routes/api/booking.js'
 import cancelRoute from './routes/api/cancel.js'
 import getBookingRoute from './routes/api/getBooking.js'
@@ -39,6 +40,7 @@ app.use('/api/getbooking', getBookingRoute);
 app.use('/api/users', usersRoute);
 app.use('/api/auth', authRoute);
 app.use('/api/movies', moviesRoute);
+app.use('/api/upcoming-movies', upcomingMoviesRouter);
 app.use('/api/cancel', cancelRoute);
 
 

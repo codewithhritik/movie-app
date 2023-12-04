@@ -2,6 +2,7 @@ import React,{useState, useEffect, useRef} from 'react';
 import './LandingPage.css'
 import Navbar from '../../components/Navbar/Navbar';
 import getMovies from '../../utility/getMovies';
+import getUpcomingMovies from '../../utility/getUpcomingMovies';
 import PosterCard from '../../components/PosterCard/PosterCard';
 import Button from '../../components/Button/Button';
 import MembershipBox from '../../components/MembershipBox/MembershipBox';
@@ -23,6 +24,7 @@ const LandingPage = () => {
   }
   
   const [movies, setMovies] = useState([]);
+  const [upcomingMovies,setUpcomingMovies] = useState([]);
 
   const [selectedMovie, setSelectedMovie] = useState([])
   const [selectedMovieTheatres, setSelectedMovieTheatres] = useState([]);
@@ -74,6 +76,16 @@ const LandingPage = () => {
       .catch((error) => {
         console.error('An error occurred:', error);
       });
+          // Fetch upcoming movies
+    getUpcomingMovies()
+    .then((upcomingMoviesData) => {
+      console.log("Upcoming Movie data ---> ", upcomingMoviesData);
+      setUpcomingMovies(upcomingMoviesData);
+    })
+    .catch((error) => {
+      console.error('An error occurred while fetching upcoming movies:', error);
+    });
+
   }, []);
 
   // const isAuthenticated = !!localStorage.getItem('token');
@@ -106,17 +118,17 @@ const LandingPage = () => {
         <h1>Upcoming Movies</h1>
       </div>
     {/* Need to change this part to Upcoming Movies Api */}
-      <div className='movies'>
-        <div className="movie-tiles">
-            {movies.map((movie) => {
-                  return(
-                    <div key={movie._id}>
-                      <PosterCard movie={movie}/>
-                    </div>
-                  )
-            })}
+      <div className='upcoming-movies'>
+          <div className="upcoming-movie-tiles">
+              {upcomingMovies.map((movie) => {
+                    return(
+                      <div key={movie._id}>
+                        <PosterCard movie={movie}/>
+                      </div>
+                    )
+              })}
+          </div>
         </div>
-      </div>
 
       { userData && userData.membership === 'free' && (
         <div>
