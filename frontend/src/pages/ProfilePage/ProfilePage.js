@@ -5,12 +5,21 @@ import { useLocation } from 'react-router-dom'
 import { useSelector } from 'react-redux/es/hooks/useSelector'
 import Button from '../../components/Button/Button'
 import BookingCard from '../../components/BookingCard/BookingCard'
+import { Link } from 'react-router-dom';
 
 
 const ProfilePage = () => {
 
   const userData = useSelector((state) => state.auth.user);
   console.log(userData);
+
+  const isUserAdmin = userData && userData.membership === 'employee';
+  const isUserPremium = userData && userData.membership === 'premium';
+
+  const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
 
   // const [rewardPoints, setRewardPoints] = useState(userData.rewardsPoints);
   // const [bookings, setBookings] = useState(userData.bookings);
@@ -29,31 +38,38 @@ const ProfilePage = () => {
         </div>
         <div className='profile-user-info'>
           <h1>Hello, {userData ? userData.name : ''}</h1>
-        </div>
-        <div className='profile-reward-points'>
-            <h1>Membership - {userData ? userData.membership === 'free' ? 'REGULAR' : 'PREMIUM' : ""}</h1>
-        </div>
-        <div className='profile-reward-points'>
-            <h1>Reward Points - {userData ? userData.rewardsPoints : 0}</h1>
-        </div>
-        {/* <div className='toggle-btns'>
-            <Button text={'Upcoming'} />
-            <Button text={'History'} />
-        </div> */}
-        <div className='profile-booking'>
-          {userData ? userData.bookings.reverse().map((booking) => {
-            console.log(booking)
-            return (
-              <div key={booking._id}>
-                  <BookingCard data={booking} />
-              </div>
-            )
-          }) : ''}
-        </div>
-    </div>
-  )
-}
+        {isUserAdmin && (
+          <>
+            <p>Manage since: {formatDate(userData.date)}</p>
+            <Link to='/admin'>
+              <Button text='Manage Movies' />
+            </Link>
+          </>
+        )}
+        {!isUserAdmin && (
+            <>
+            <div className='profile-reward-points'>
+              <h1>Membership - {isUserPremium ? 'PREMIUM' : 'REGULAR'}</h1>
+            </div>
+            <div className='profile-reward-points'>
+              <h1>Reward Points - {userData ? userData.rewardsPoints : 0}</h1>
+            </div>
 
+
+            <div className='profile-booking'>
+              {userData ? userData.bookings.reverse().map((booking) => (
+                <div key={booking._id}>
+                  <BookingCard data={booking} />
+                </div>
+              )) : ''}
+            </div>
+            
+
+            </>
+
+        )};
+      </div>
+      </div>)};
 
 
 
