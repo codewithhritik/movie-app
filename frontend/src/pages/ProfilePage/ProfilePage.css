@@ -1,3 +1,10 @@
+.profile-user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+    text-align: center;
+  }
 .profile-reward-points{
     display: flex;
     justify-content: center;

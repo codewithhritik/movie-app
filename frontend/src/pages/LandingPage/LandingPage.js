@@ -117,9 +117,9 @@ const LandingPage = () => {
       <div className='title-2'>
         <h1>Upcoming Movies</h1>
       </div>
-    {/* Need to change this part to Upcoming Movies Api */}
-      <div className='upcoming-movies'>
-          <div className="upcoming-movie-tiles">
+    {/*Upcoming Movies Api has been added*/}
+      <div className='movies'>
+          <div className="movie-tiles">
               {upcomingMovies.map((movie) => {
                     return(
                       <div key={movie._id}>

@@ -27,6 +27,9 @@ const ProfilePage = () => {
         <div>
             <Navbar />
         </div>
+        <div className='profile-user-info'>
+          <h1>Hello, {userData ? userData.name : ''}</h1>
+        </div>
         <div className='profile-reward-points'>
             <h1>Membership - {userData ? userData.membership === 'free' ? 'REGULAR' : 'PREMIUM' : ""}</h1>
         </div>

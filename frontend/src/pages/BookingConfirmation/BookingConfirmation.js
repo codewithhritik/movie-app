@@ -36,7 +36,9 @@ const BookingConfirmation = () => {
     const sixPM = setHours(setMinutes(new Date(), 0), 18);
     console.log(date);
     
-    
+    const handleBack = () => {
+        navigate(-1)
+    }
     
 
     const handleRewardUse = () => {
@@ -219,6 +221,9 @@ const BookingConfirmation = () => {
                 </div>
             </div>
             <div className='confirm-btn'>
+                <div onClick={handleBack}>
+                    <Button text={'Back'} />
+                </div>
                 <div onClick={handleRewardUse}>
                     <Button text={useRewardPoints ? `Don't use Reward Points` : 'Use Reward Points'} />
                 </div>
