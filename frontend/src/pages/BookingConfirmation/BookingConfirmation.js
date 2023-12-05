@@ -114,13 +114,13 @@ const BookingConfirmation = () => {
         // console.log('Formatted Show Timing:', formattedTime);
     }
     const updateTotalAndPoints = () => {
-        const onlineServiceFee = userData.membership === 'free' ? (1.50 * selectedSeats.length) : 0;
-        const baseTotal = 15.00 * selectedSeats.length + onlineServiceFee;
-        const rewardPointsUsed = useRewardPoints ? Math.min(baseTotal, userData.rewardsPoints) : 0;
-        const newTotal = Math.max(baseTotal - rewardPointsUsed, 0);
+        const onlineServiceFee = userData.membership === 'free' ? 1.5 * selectedSeats.length : 0;
+        const baseTotal = 15 * selectedSeats.length + onlineServiceFee;
+        const rewardPointsUsed = useRewardPoints ? Math.min(baseTotal / 10, userData.rewardsPoints) : 0;
+        const newTotal = Math.max(baseTotal - rewardPointsUsed * 10, 0);
         const discount = (calculateDiscount() * newTotal) / 100;
         const evenNewerTotal = newTotal - discount;
-        const newRemainingPoints = useRewardPoints ? Math.max(userData.rewardsPoints - rewardPointsUsed, 0) : userData.rewardsPoints;
+        const newRemainingPoints = useRewardPoints ? Math.max(userData.rewardsPoints - rewardPointsUsed * 10, 0) : userData.rewardsPoints;
         setRemainingRewardPoints(newRemainingPoints);
         setTotal(evenNewerTotal);
         // console.log(newRemainingPoints);

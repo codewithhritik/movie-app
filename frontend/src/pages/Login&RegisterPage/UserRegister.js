@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { connect } from 'react-redux';
 import { setAlert } from '../../actions/alert'; 
 import { register } from '../../actions/auth';
+import { login } from '../../actions/auth'; 
 import PropTypes from 'prop-types'
 import { useNavigate } from 'react-router-dom';
 
@@ -25,12 +26,14 @@ const Register = ({setAlert, register}) =>{
     name:'',
     email: '',
     password: '',
-    password2: ''
+    password2: '',
+    membership:'regular',
   });
 
 
-  const {name, email, password, password2 } = formData;
+  const {name, email, password, password2, membership } = formData;
   
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -44,14 +47,28 @@ const Register = ({setAlert, register}) =>{
       const newUser = {
         name,
         email,
-        password
+        password,
+        membership,
       };
       
 
       try {
         await register(newUser); 
-        navigate('/');
-        // console.log("After try catch",userData)
+        // Check if the selected membership is "Premium" and redirect accordingly
+        const loginData = {
+          email: newUser.email,
+          password: newUser.password,
+        };
+
+        // Call the login action to log in the user
+        await login(loginData);
+        
+        if (membership === 'premium') {
+          navigate('/get-premium'); // Redirect to the /get-premium page
+        } else {
+          // Redirect to another page if needed (e.g., '/dashboard')
+          navigate('/');
+        }
       } catch (err) {
         console.error('Error:', err);
       }
@@ -82,8 +99,19 @@ const Register = ({setAlert, register}) =>{
           <input type="password" id="password" name="password" value={formData.password} onChange={(e) => handleChange(e, 'password')} minLength='6' required/>
           <label htmlFor="password2">Retype Password</label>
           <input type="password" id="password2" name="password2" value={formData.password2} onChange={(e) => handleChange(e, 'password2')} minLength='6' required />
-          
+          <label htmlFor="membership">Membership</label>
+          <select
+            id="membership"
+            name="membership"
+            value={membership}
+            onChange={handleChange}
+            required
+          >
+            <option value="regular">Regular</option>
+            <option value="premium">Premium</option>
+          </select>
           <button className="register-btn" type="submit">{ 'Sign Up'}</button>
+
           <p>
             {'Already have an account? '}
             <Link to="/login">{'Login'}</Link>
