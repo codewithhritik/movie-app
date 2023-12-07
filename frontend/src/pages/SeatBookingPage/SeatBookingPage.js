@@ -3,7 +3,6 @@ import './SeatBookingPage.css'; // Import your CSS file for styling
 import Button from '../../components/Button/Button';
 import convertSeatToString from '../../utility/convertSeatToString'
 import { useLocation, useNavigate } from 'react-router-dom';
-import { set } from 'mongoose';
 const SeatBookingPage = () => {
 
     const location = useLocation();
