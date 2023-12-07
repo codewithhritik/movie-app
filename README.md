@@ -23,5 +23,6 @@ From the onset of the MovieTheater Club application project, we embraced the val
 - Deployment - AWS
 
 # Architecture Diagrams
-- UML component diagram  
+- UML component diagram
+(./diagrams/UML-component.pdf)
 
