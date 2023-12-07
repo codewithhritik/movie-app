@@ -24,5 +24,4 @@ From the onset of the MovieTheater Club application project, we embraced the val
 
 # Architecture Diagrams
 - UML component diagram
-(./diagrams/UML-component.pdf)
 
