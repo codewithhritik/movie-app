@@ -99,8 +99,8 @@ const Register = ({setAlert, register}) =>{
           <input type="password" id="password" name="password" value={formData.password} onChange={(e) => handleChange(e, 'password')} minLength='6' required/>
           <label htmlFor="password2">Retype Password</label>
           <input type="password" id="password2" name="password2" value={formData.password2} onChange={(e) => handleChange(e, 'password2')} minLength='6' required />
-          <label htmlFor="membership">Membership</label>
-          <select
+          {/* <label htmlFor="membership">Membership</label> */}
+          {/* <select
             id="membership"
             name="membership"
             value={membership}
@@ -109,7 +109,7 @@ const Register = ({setAlert, register}) =>{
           >
             <option value="regular">Regular</option>
             <option value="premium">Premium</option>
-          </select>
+          </select> */}
           <button className="register-btn" type="submit">{ 'Sign Up'}</button>
 
           <p>

@@ -11,6 +11,7 @@ import {
 } from './types';
 import { setAlert } from './alert'; // Import the setAlert action
 import setAuthToken from '../utility/setAuthToken'
+import { API_BASE_URL } from "../utility/apiConfig";
 
 // Register User
 export const register = ({name, email, password}) => async (dispatch) => {
@@ -26,7 +27,7 @@ export const register = ({name, email, password}) => async (dispatch) => {
       const body = JSON.stringify({name, email, password});
 
       const api = axios.create({
-        baseURL: 'http://localhost:8000/api', // Modify this base URL to match your backend's URL
+        baseURL: `${API_BASE_URL}/api`, // Modify this base URL to match your backend's URL
       });
   
       const res = await api.post('/users',body, config);
@@ -64,7 +65,7 @@ export const loadUser = () => async (dispatch) => {
     }
 
     const api = axios.create({
-      baseURL: 'http://localhost:8000/api',
+      baseURL: `${API_BASE_URL}/api`,
     });
 
     // Retrieve user data from the backend
@@ -97,7 +98,7 @@ export const login = (email, password) => async (dispatch) => {
     const body = JSON.stringify({ email, password });
 
     const api = axios.create({
-      baseURL: 'http://localhost:8000/api',
+      baseURL: `${API_BASE_URL}/api`,
     });
 
     const res = await api.post('/auth', body, config);

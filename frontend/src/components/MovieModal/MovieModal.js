@@ -231,9 +231,9 @@ function MovieModal({ open, movie, onClose, onSave }) {
             />
           </div>
         ))}
-        <Button startIcon={<AddCircleOutlineIcon />} onClick={handleAddTheatre}>
+        {movie ? '' : <Button startIcon={<AddCircleOutlineIcon />} onClick={handleAddTheatre}>
           Add Theater
-        </Button>
+        </Button>}
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose}>Cancel</Button>

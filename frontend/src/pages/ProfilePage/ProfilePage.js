@@ -36,40 +36,30 @@ const ProfilePage = () => {
         <div>
             <Navbar />
         </div>
-        <div className='profile-user-info'>
-          <h1>Hello, {userData ? userData.name : ''}</h1>
-        {isUserAdmin && (
-          <>
-            <p>Manage since: {formatDate(userData.date)}</p>
-            <Link to='/admin'>
-              <Button text='Manage Movies' />
-            </Link>
-          </>
-        )}
+        {/* <div className='profile-user-info'>
+          <h1> HELLO {userData ? userData.name.toUpperCase() : ''}</h1>
+        </div> */}
         {!isUserAdmin && (
-            <>
-            <div className='profile-reward-points'>
-              <h1>Membership - {isUserPremium ? 'PREMIUM' : 'REGULAR'}</h1>
-            </div>
-            <div className='profile-reward-points'>
-              <h1>Reward Points - {userData ? userData.rewardsPoints : 0}</h1>
-            </div>
-
-
-            <div className='profile-booking'>
-              {userData ? userData.bookings.reverse().map((booking) => (
-                <div key={booking._id}>
-                  <BookingCard data={booking} />
+            <div>
+              <div className='profile-reward-points'>
+                  <h1>Membership - {isUserPremium ? 'PREMIUM' : 'REGULAR'}</h1>
                 </div>
-              )) : ''}
+                <div className='profile-reward-points'>
+                  <h1>Reward Points - {userData ? Math.round(userData.rewardsPoints) : 0}</h1>
+                </div>
+
+
+                <div className='profile-booking'>
+                  {userData ? userData.bookings.reverse().map((booking) => (
+                    <div key={booking._id}>
+                      <BookingCard data={booking} />
+                    </div>
+                  )) : <></>}
+                </div>
             </div>
-            
 
-            </>
-
-        )};
-      </div>
-      </div>)};
+        )}
+      </div>)}
 
 
 

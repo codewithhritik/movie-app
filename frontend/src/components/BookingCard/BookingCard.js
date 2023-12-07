@@ -5,6 +5,7 @@ import Button from '../Button/Button';
 import axios from 'axios';
 import store from '../../store.js'
 import { loadUser } from '../../actions/auth';
+import { API_BASE_URL } from '../../utility/apiConfig';
 
 const BookingCard = ({data}) => {
   // console.log(data);
@@ -12,11 +13,7 @@ const BookingCard = ({data}) => {
   const propDate = new Date(data.date);
   const formattedDate = data?.date ? format(new Date(data.date), 'dd MMM') : '';
 
-  // console.log(currentDate , propDate)
   
-
-  // const isSameMonthDay =
-  //   currentDate.getMonth() === propDate.getMonth() && currentDate.getDate() === propDate.getDate();
   const isDateAfterCurrent=
   propDate.getMonth() > currentDate.getMonth() ||
   (propDate.getMonth() === currentDate.getMonth() && propDate.getDate() > currentDate.getDate());
@@ -29,7 +26,7 @@ const BookingCard = ({data}) => {
   const handleCancelTicket = async (user, booking) => {
     try {
       // Make a POST request to the /cancel-and-refund endpoint
-      const response = await axios.post('http://localhost:8000/api/cancel', {
+      const response = await axios.post(`${API_BASE_URL}/api/cancel`, {
         user: user,
         booking: booking,
       });

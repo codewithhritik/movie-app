@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux/es/hooks/useSelector';
 import Button from '../../components/Button/Button';
 // import {parse, isTuesday} from 'date-fns';
 import { parse, isTuesday, isBefore, setHours, setMinutes, format } from 'date-fns';
+import { API_BASE_URL } from '../../utility/apiConfig';
 
 
 const BookingConfirmation = () => {
@@ -60,7 +61,7 @@ const BookingConfirmation = () => {
         console.log(selectedSeats);
 
         // const parsedDate = parse(date, 'd MMM', new Date());
-        axios.post('http://localhost:8000/api/booking', {
+        axios.post(`${API_BASE_URL}/api/booking`, {
             user: user,
             movie: currentMovie,
             theatre: currentTheatre,
@@ -211,7 +212,7 @@ const BookingConfirmation = () => {
             <div className='total-payment'>
                 <div className='total'>Total Payment</div>
                 <div>
-                    {`$ ${total}`}
+                    {`$ ${Math.round(total)}`}
                 </div>
             </div>
             <div className='reward-points'>
@@ -221,9 +222,9 @@ const BookingConfirmation = () => {
                 </div>
             </div>
             <div className='confirm-btn'>
-                <div onClick={handleBack}>
+                {/* <div onClick={handleBack}>
                     <Button text={'Back'} />
-                </div>
+                </div> */}
                 <div onClick={handleRewardUse}>
                     <Button text={useRewardPoints ? `Don't use Reward Points` : 'Use Reward Points'} />
                 </div>

@@ -115,7 +115,7 @@ const BookingPage = ({movie, theatres}) => {
                     <div className="date-boxes">
                     {dates.map((date) => {
                         return (
-                            <div key={date.date} onClick={() => handleDatesClick(date)}>
+                            <div className='individual-date-box' key={date.date} onClick={() => handleDatesClick(date)}>
                                 <DateButton date={date} selected={selectedDate === date.date}/>
                             </div>      
                         )
