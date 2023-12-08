@@ -2,7 +2,7 @@
 team-project-oriental-squad-team-1 created by GitHub Classroom
 
 # Team Members
-- Parth Joshi
+- Parth Joshi (017430439)
 - Hrithik Bagane (017102176)
 - Hao Lan (013979004)
 - Rachel Fan (016693300)
