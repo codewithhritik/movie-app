@@ -45,4 +45,8 @@ https://www.figma.com/file/51h10CKAkMV3ILe9uggWov/Movie-Theater-Club-Application
 https://docs.google.com/spreadsheets/d/1qhLo919XGF1t4c8SbZ2IpPm2nrNmJ6xgPu5kum7bt6E/edit?usp=sharing
 
 # Architecture Diagrams
-![Use Case Diagram](https://github.com/gopinathsjsu/team-project-oriental-squad-team-1/blob/demo/UML-component.pdf)
+UML-component-diagram
+<img width="968" alt="component" src="https://github.com/gopinathsjsu/team-project-oriental-squad-team-1/assets/144398970/023e6902-f87e-48dd-9835-177a67db2f3a">
+
+UML-deployment-diagram
+<img width="1007" alt="deployment" src="https://github.com/gopinathsjsu/team-project-oriental-squad-team-1/assets/144398970/b0b927a2-2c0e-45e6-b85d-8cf78835d656">
