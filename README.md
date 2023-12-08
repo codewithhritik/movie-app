@@ -15,12 +15,30 @@ Our team culture was deeply rooted in mutual respect and understanding. We ackno
 3. Simplicity
 From the onset of the MovieTheater Club application project, we embraced the value of simplicity in our approach. We strategically focused on the core functionalities that were essential for the application’s success, deliberately avoiding over-complication of features. This mindset was reflected in our design choices, where we opted for a user-friendly interface with intuitive navigation, and in our coding practices, where we aimed for clean, maintainable code. By breaking down complex tasks into manageable parts and prioritizing them based on their impact, we were able to maintain a clear focus and avoid getting sidetracked by less critical features. This simplicity in our approach not only made our work more efficient but also resulted in a more robust and user-centered product.
 
+# Team meeting schedule
+- Fridays, 4PM to 5PM weekly.
+- Personal meeting on demand by group individuals. 
+
 # Tech Stack
 - Database - MongoDB
 - Backend - Node.js
 - Frendend - React
 - API Testing - Postman
 - Deployment - AWS
+
+# UI wireframes
+https://www.figma.com/file/51h10CKAkMV3ILe9uggWov/Movie-Theater-Club-Application-Website?type=design&node-id=13%3A8&mode=design&t=Cb5vso82qLPPh0zX-1
+
+# Design Features
+1. Welcome page
+   - This page will show the movie selection with options to login as "club user", "premium member", and "system admin". Also user could just browsing our application without logging in.
+   - Displays a wide selection of available movies based on the featured locations.
+2. Ticket booking
+   - This page will allow users to book tickets for their desired movies. And our premium members will get rewards and exclusive discounts.
+3. Membership
+   - This page will allow club users to purchase for our premium member. Premium members will be able to see their current rewards status.
+4. Upcoming movies
+   - This page will display the upcoming movies for our uses. Tickets availabilities will let users have better planning about their featured movies. 
 
 # Architecture Diagrams
 - UML component diagram
