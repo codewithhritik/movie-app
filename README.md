@@ -17,7 +17,8 @@ From the onset of the MovieTheater Club application project, we embraced the val
 
 # Team meeting schedule
 - Fridays, 4PM to 5PM weekly.
-- Personal meeting on demand by group individuals. 
+- Personal meeting on demand by group individuals.
+- Scrum meeting report: [https://docs.google.com/document/d/1Swkcg-tMUXCwSfnFih8lW7cn-Xz4eqT9vZMNfz0udic/edit](https://docs.google.com/document/d/1Swkcg-tMUXCwSfnFih8lW7cn-Xz4eqT9vZMNfz0udic/edit?usp=sharing)
 
 # Tech Stack
 - Database - MongoDB
@@ -38,7 +39,10 @@ https://www.figma.com/file/51h10CKAkMV3ILe9uggWov/Movie-Theater-Club-Application
 3. Membership
    - This page will allow club users to purchase for our premium member. Premium members will be able to see their current rewards status.
 4. Upcoming movies
-   - This page will display the upcoming movies for our uses. Tickets availabilities will let users have better planning about their featured movies. 
+   - This page will display the upcoming movies for our uses. Tickets availabilities will let users have better planning about their featured movies.
+
+# Sprint sheet
+https://docs.google.com/spreadsheets/d/1qhLo919XGF1t4c8SbZ2IpPm2nrNmJ6xgPu5kum7bt6E/edit?usp=sharing
 
 # Architecture Diagrams
 - UML component diagram
