@@ -45,7 +45,7 @@ app.use('/api/cancel', cancelRoute);
 
 
 app.get("/", (req, res) => {
-    res.send('API running')
+    res.status(200).json({message: 'Hello World!'})
 })
 
 app.listen(PORT, ()  => {
