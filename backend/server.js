@@ -3,13 +3,13 @@ import cors from "cors"
 import dotenv from "dotenv"
 import mongoose from "mongoose"
 
-import usersRoute from '../routes/api/users.js';
-import authRoute from '../routes/api/auth.js';
-import moviesRoute from '../routes/api/movies.js';
-import upcomingMoviesRouter from '../routes/api/upcoming-movies.js'
-import bookingRoute from '../routes/api/booking.js'
-import cancelRoute from '../routes/api/cancel.js'
-import getBookingRoute from '../routes/api/getBooking.js'
+import usersRoute from './routes/api/users.js';
+import authRoute from './routes/api/auth.js';
+import moviesRoute from './routes/api/movies.js';
+import upcomingMoviesRouter from './routes/api/upcoming-movies.js'
+import bookingRoute from './routes/api/booking.js'
+import cancelRoute from './routes/api/cancel.js'
+import getBookingRoute from './routes/api/getBooking.js'
 
 dotenv.config()
 
